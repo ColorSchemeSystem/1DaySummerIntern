@@ -22,6 +22,7 @@
 |getFieldHeight()|int|フィールドのheightを求める|
 |changeLineColor(String color)|void|線の色をセットする|
 |drawLine(Point point)|void|現在座標から線を引く|
+|drawGridLine()|void|グリッドラインを引く|
 
 
 
