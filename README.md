@@ -11,8 +11,8 @@
 #### constructor
 |name|
 |:---|
-|initField(int width, int height)|
-|initField()|
+|FieldArea(int width, int height)|
+|FieldArea()|
 
 #### method
 | 　name   | type    |explain |
@@ -40,8 +40,8 @@
 #### constructor
 |name|
 |:---|
-|initPlayer(Point point, int rotation, int textureType)|
-|initPlayer(int textureType)|
+|Player(Point point, int rotation, int textureType)|
+|Player(int textureType)|
 
 #### method
 | 　name   | type    |explain |
@@ -66,7 +66,7 @@
 #### constructor
 |name|
 |:---|
-|initPoint(int x, int y)|
+|Point(int x, int y)|
 
 
 # Calcu
