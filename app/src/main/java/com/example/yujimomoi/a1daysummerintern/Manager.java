@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.util.Log;
 
 import com.example.yujimomoi.a1daysummerintern.classFile.Player;
-import com.example.yujimomoi.a1daysummerintern.test.TestSurfaceView;
 
 /**
  * Created by yuji.momoi on 2016/07/07.
@@ -12,14 +11,13 @@ import com.example.yujimomoi.a1daysummerintern.test.TestSurfaceView;
 public class Manager extends Activity{
     private Player player;
     private ActionManager actionManager;
+    private ViewRendere viewRendere;
 
-    private TestSurfaceView testSurfaceView;
-
-    public Manager() {
+    public Manager(ViewRendere viewRendere) {
         Log.d("create", "Manager");
+        this.viewRendere = viewRendere;
         this.actionManager = null;
         this.player = null;
-        testSurfaceView = null;
     };
 
     public void init() {
@@ -43,14 +41,5 @@ public class Manager extends Activity{
 
     public void update() {
         this.player.update();
-        this.testSurfaceView.update();
-    };
-
-    public void draw() {
-        this.player.draw();
-    };
-
-    public void setTestSurfaceView(TestSurfaceView testSurfaceView) {
-        this.testSurfaceView = testSurfaceView;
     };
 }
