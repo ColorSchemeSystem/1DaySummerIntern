@@ -3,8 +3,10 @@ package com.example.yujimomoi.a1daysummerintern.classFile;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.util.Log;
 
+import com.example.yujimomoi.a1daysummerintern.Manager;
 import com.example.yujimomoi.a1daysummerintern.R;
 import com.example.yujimomoi.a1daysummerintern.classFile.Point;
 
@@ -17,7 +19,6 @@ public class Player implements BaseObject {
     public int texture_type;
     public int texture_color;
     private Bitmap texture;
-    private Point texture_size;
 
     public Player() {
         Log.d("create", "Player");
@@ -26,15 +27,16 @@ public class Player implements BaseObject {
         this.texture_type = 0;
         this.texture_color = 0;
         this.texture = null;
-        this.texture_size = null;
     };
 
     @Override
     public void init() {
         Log.d("init", "Player");
         this.point = new Point();
-        this.point = new Point(100, 100);
-        //this.texture = BitmapFactory.decodeResource(getResources(), R.drawable._app_icon_dameo);
+        //while(this.texture == null) {
+            this.texture = Manager.getTexture(R.drawable._app_icon_dameo);
+        //}
+        Log.d("init_end", "Player");
     };
 
     @Override
@@ -42,7 +44,10 @@ public class Player implements BaseObject {
 
     @Override
     public void draw(Canvas canvas) {
-
+        if(texture != null) {
+            canvas.drawBitmap(texture, this.point.x, this.point.y, new Paint());
+        } else {
+        }
     };
 
     public Point getPoint() {

@@ -1,8 +1,11 @@
 package com.example.yujimomoi.a1daysummerintern;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -16,9 +19,15 @@ public class ViewRendere extends SurfaceView implements SurfaceHolder.Callback{
     private Thread thread; //描画スレッド
     private BaseObject obj[];
     private Context cont;
+    private int texture_name_list[] = {R.drawable._app_icon_dameo};
+    private Bitmap texture_list[];
 
     public ViewRendere(Context context) {
         super(context);
+        this.texture_list = new Bitmap[texture_name_list.length];
+        for(int i = 0;i < texture_name_list.length;i++) {
+            this.texture_list[i] = BitmapFactory.decodeResource(getResources(), texture_name_list[i]);
+        }
         this.thread = null;
         this.obj = null;
         this.cont = context;
@@ -50,6 +59,16 @@ public class ViewRendere extends SurfaceView implements SurfaceHolder.Callback{
         }
     };
 
+    public Bitmap getTexture(int id) {
+        Log.d("ViewRendere", "getTexture");
+        for(int i = 0;i < this.texture_name_list.length;i++) {
+            if(this.texture_name_list[i] == id) {
+                return this.texture_list[i];
+            }
+        }
+        return null;
+    }
+
     public void surfaceCreated(SurfaceHolder holder) {
         thread = new DrawThread();
         thread.start();
@@ -63,6 +82,16 @@ public class ViewRendere extends SurfaceView implements SurfaceHolder.Callback{
     };
 
     public void setObject(BaseObject object) {
-        this.obj[this.obj.length - 1] = object;
+        Log.d("ViewRendere", "setObject");
+
+        int length = 1;
+        if(this.obj != null) length = this.obj.length + 1;
+        BaseObject array[] = new BaseObject[length];
+        for(int i = 0;i < array.length - 1;i++) {
+            array[i] = this.obj[i];
+        }
+        array[array.length - 1] = object;
+        Log.d("ViewRendere", "set : " + String.valueOf(length));
+        this.obj = array;
     };
 }

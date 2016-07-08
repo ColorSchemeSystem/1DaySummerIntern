@@ -24,6 +24,7 @@ public class ActionManager {
         Log.d("init", "ActionManager");
         if(this.data != null) this.data.clear();
         this.data = new HashMap<String, String>();
+        Log.d("init_end", "ActionManager");
     };
 
     public void setData(String value) {
