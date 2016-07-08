@@ -1,14 +1,12 @@
 package com.example.yujimomoi.a1daysummerintern.classFile;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.Log;
 
 import com.example.yujimomoi.a1daysummerintern.Manager;
 import com.example.yujimomoi.a1daysummerintern.R;
-import com.example.yujimomoi.a1daysummerintern.classFile.Point;
 
 /**
  * Created by yuji.momoi on 2016/07/07.
