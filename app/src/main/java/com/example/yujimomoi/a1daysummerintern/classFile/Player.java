@@ -1,5 +1,8 @@
 package com.example.yujimomoi.a1daysummerintern.classFile;
 
+import android.graphics.Canvas;
+import android.util.Log;
+
 import com.example.yujimomoi.a1daysummerintern.classFile.Point;
 
 /**
@@ -12,11 +15,22 @@ public class Player {
     public int texture_color;
 
     public Player() {
-        this.point = new Point();
+        Log.d("create", "Player");
+        this.point = null;
         this.rotation = 0;
         this.texture_type = 0;
         this.texture_color = 0;
     };
+
+
+    public void init() {
+        Log.d("init", "Player");
+        this.point = new Point();
+    };
+
+    public void update() {};
+
+    public void draw() {};
 
     public Point getPoint() {
         return this.point;
