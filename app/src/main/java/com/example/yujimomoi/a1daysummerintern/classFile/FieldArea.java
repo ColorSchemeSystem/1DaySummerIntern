@@ -6,41 +6,41 @@ import android.util.Log;
  * Created by yuji.momoi on 2016/07/07.
  */
 public class FieldArea {
-    private int field_width;
-    private int field_height;
-    private String line_color;
+	private int field_width;
+	private int field_height;
+	private String line_color;
 
-    public FieldArea() {
-        Log.d("create", "FieldArea");
-        field_width = 0;
-        field_height = 0;
-        line_color = null;
-    };
+	public FieldArea() {
+		Log.d("create", "FieldArea");
+		field_width = 0;
+		field_height = 0;
+		line_color = null;
+	}
 
-    public void init(int width,int height) {
-        Log.d("init", "FieldArea");
-        field_width = width;
-        field_height = height;
-    };
+	public void init(int width,int height) {
+		Log.d("init", "FieldArea");
+		field_width = width;
+		field_height = height;
+	}
 
-    public void init() {
+	public void init() {
 
-        Log.d("init", "FieldArea");
-    };
+		Log.d("init", "FieldArea");
+	}
 
-    public FieldArea getFieldSise() {
-        return null;
-    };
+	public FieldArea getFieldSise() {
+		return null;
+	}
 
-    public int getFieldWidth() {
-        return field_width;
-    };
+	public int getFieldWidth() {
+		return field_width;
+	}
 
-    public int getFieldHeight() {
-        return field_height;
-    };
+	public int getFieldHeight() {
+		return field_height;
+	}
 
-    public void getFieldSize() {};
+	public void getFieldSize() {}
 
-    public void drawLine(Point point) {};
+	public void drawLine(Point point) {}
 }
