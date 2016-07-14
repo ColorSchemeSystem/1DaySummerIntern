@@ -9,12 +9,15 @@ import android.view.KeyEvent;
 import com.example.yujimomoi.a1daysummerintern.classFile.Player;
 import com.example.yujimomoi.a1daysummerintern.test.TestSurfaceView;
 
+import java.util.TimerTask;
+
 public class MainActivity extends AppCompatActivity {
 
 	private Handler handler = new Handler();
 	private Runnable updateText;
+	private TimerTask timerTask;
 
-	private long FPS = 60 / 1000;
+	private long FPS = 1 / 1000;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,15 +30,23 @@ public class MainActivity extends AppCompatActivity {
 		final Manager manager = new Manager(viewRendere);
 		manager.init();
 
-		updateText = new Runnable() {
+		handler.postDelayed(new Runnable() {
 			@Override
 			public void run() {
 				manager.update();
-				handler.removeCallbacks(updateText);
-				handler.postDelayed(updateText, FPS);
+				handler.postDelayed(this, FPS);
 			}
-		};
-		handler.postDelayed(updateText, FPS);
+		}, FPS);
+
+//		updateText = new Runnable() {
+//			@Override
+//			public void run() {
+//				manager.update();
+//				handler.removeCallbacks(updateText);
+//				handler.postDelayed(updateText, FPS);
+//			}
+//		};
+//		handler.postDelayed(updateText, FPS);
 	}
 
 	@Override

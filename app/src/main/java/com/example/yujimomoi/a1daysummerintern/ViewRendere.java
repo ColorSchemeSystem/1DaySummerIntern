@@ -5,11 +5,18 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.example.yujimomoi.a1daysummerintern.classFile.BaseObject;
+
+import java.util.ArrayList;
+import java.util.StringTokenizer;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -21,8 +28,8 @@ public class ViewRendere extends SurfaceView implements SurfaceHolder.Callback{
 	private Context cont;
 	private int texture_name_list[] = {R.drawable._app_icon_dameo};
 	private Bitmap texture_list[];
-	private final int VIEW_WIDTH = 300;
-	private final int VIEW_HEIGHT = 300;
+	private ScheduledExecutorService scheduledExecutorService;
+	private ArrayList<Long> intervalTime = new ArrayList<Long>(20);
 
 	public ViewRendere(Context context) {
 		super(context);
@@ -34,6 +41,10 @@ public class ViewRendere extends SurfaceView implements SurfaceHolder.Callback{
 		this.obj = null;
 		this.cont = context;
 		getHolder().addCallback(this);
+
+		for(int i = 0;i < 20;i++) {
+			intervalTime.add(System.currentTimeMillis());
+		}
 	}
 
 	// 描画用スレッド
@@ -56,7 +67,9 @@ public class ViewRendere extends SurfaceView implements SurfaceHolder.Callback{
 
 		if(this.obj != null) {
 			for (BaseObject o : this.obj) {
+				canvas.save();
 				o.draw(canvas);
+				canvas.restore();
 			}
 		}
 	}
@@ -71,9 +84,24 @@ public class ViewRendere extends SurfaceView implements SurfaceHolder.Callback{
 		return null;
 	}
 
-	public void surfaceCreated(SurfaceHolder holder) {
+	public void surfaceCreated(final SurfaceHolder holder) {
 		thread = new DrawThread();
 		thread.start();
+
+//		scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
+//		scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
+//			@Override
+//			public void run() {
+//				intervalTime.add(System.currentTimeMillis());
+//				float fps = 20000 / (intervalTime.get(19) - intervalTime.get(0));
+//
+//				Canvas canvas = holder.lockCanvas();
+//				//mydraw(canvas);
+//				Paint paint = new Paint();
+//				canvas.drawText(String.format("%.1f fps", fps), 0 ,24f, new Paint());
+//				holder.unlockCanvasAndPost(canvas);
+//			}
+//		}, 60 / 1000, 16, TimeUnit.MILLISECONDS);
 	}
 
 	public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {

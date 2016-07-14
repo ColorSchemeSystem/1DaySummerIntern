@@ -12,26 +12,23 @@ import com.example.yujimomoi.a1daysummerintern.R;
 /**
  * Created by yuji.momoi on 2016/07/07.
  */
-public class Player implements BaseObject {
+public class Player extends BaseObject {
 	public Point point;
 	public int rotation;
 	public int texture_type;
 	public int texture_color;
 	private Bitmap texture;
-	private ActionManager actionManager;
-	private static int max_id = 0;
-	private int id;
+	private Manager manager;
 
-	public Player(ActionManager actionManager) {
+	public Player(Manager manager) {
+		super(BaseObject.OBJ_TYPE_PLAYER);
 		Log.d("create", "Player");
 		this.point = null;
 		this.rotation = 0;
 		this.texture_type = 0;
 		this.texture_color = 0;
 		this.texture = null;
-		this.actionManager = actionManager;
-		this.id = max_id;
-		max_id ++;
+		this.manager = manager;
 	}
 
 	@Override
@@ -39,16 +36,18 @@ public class Player implements BaseObject {
 		Log.d("init", "Player");
 		this.point = new Point();
 		this.texture = Manager.getTexture(R.drawable._app_icon_dameo);
+		super.setObj(this);
 		Log.d("init_end", "Player");
 	}
 
 	@Override
-	public void update() {};
+	public void update() {
+	};
 
 	@Override
 	public void draw(Canvas canvas) {
 		if(this.texture != null) {
-			canvas.drawBitmap(this.texture, this.point.x, this.point.y, new Paint());
+			canvas.drawBitmap(this.texture, (float)this.point.x, (float)this.point.y, new Paint());
 		} else {
 		}
 	}
@@ -66,26 +65,35 @@ public class Player implements BaseObject {
 	public static void changeAllTexColor() {}
 
 	public void move(int amountOfMove) {
-		double moveX = Math.sin(rotation) * amountOfMove;
-		double moveY = -Math.cos(rotation) * amountOfMove;
+//		this.point.x += Math.sin(this.rotation) * amountOfMove;
+//		this.point.y += -Math.cos(this.rotation) * amountOfMove;
 		if(ActionManager.getWriteAction()) {
-			this.actionManager.setData("player " + this.id + " move " + amountOfMove);
+			this.manager.setData(this.id + " move " + String.valueOf(amountOfMove) + " false");
+			for(int i = 0;i < amountOfMove;i++) {
+				this.manager.setData(this.id + " move 1 false");
+			}
 		} else {
-			this.point.x += moveX;
-			this.point.y += moveY;
+			this.point = Calcu.calcuPoint(this.point, this.rotation, amountOfMove);
 		}
 	}
 
 	public void moveWithLine(int amountOfMove) {
-		double moveX = Math.sin(rotation) * amountOfMove;
-		double moveY = -Math.cos(rotation) * amountOfMove;
-		this.point.x += moveX;
-		this.point.y += moveY;
+		if(ActionManager.getWriteAction()) {
+//			this.manager.setData(this.id + " move " + String.valueOf(amountOfMove) + " false");
+			for(int i = 0;i < amountOfMove;i++) {
+				this.manager.setData(this.id + " move 1 false");
+			}
+		} else {
+			this.point = Calcu.calcuPoint(this.point, this.rotation, amountOfMove);
+		}
 	}
 
 	public void turn(int degree) {
+//		this.rotation += degree;
+//		if (this.rotation > 360) this.rotation -= 360;
+//		if (this.rotation < 0) this.rotation += 360;
 		if(ActionManager.getWriteAction()) {
-			this.actionManager.setData("player " + this.id + " turn " + degree);
+			this.manager.setData(this.id + " turn " + degree);
 		} else {
 			this.rotation += degree;
 			if (this.rotation > 360) this.rotation -= 360;

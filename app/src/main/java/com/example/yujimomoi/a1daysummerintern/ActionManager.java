@@ -2,6 +2,8 @@ package com.example.yujimomoi.a1daysummerintern;
 
 import android.util.Log;
 
+import com.example.yujimomoi.a1daysummerintern.classFile.BaseObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,8 +32,34 @@ public class ActionManager {
 		Log.d("init_end", "ActionManager");
 	}
 
+	public void update() {
+		String action = getDataOneLine();
+		if(action == null) return;
+		String act[] = action.split(" ");
+
+		int id = Integer.parseInt(act[0]);
+		if(id < BaseObject.max_id) {
+			switch (act[1]) {
+				case "move":
+				{
+					int amount = Integer.parseInt(act[2]);
+					boolean line = Boolean.parseBoolean(act[3]);
+					if(line) BaseObject.move(id, amount);
+					else BaseObject.moveWithLine(id, amount);
+				}
+				break;
+				case "turn":
+				{
+					int degree = Integer.parseInt(act[2]);
+					BaseObject.turn(id, degree);
+				}
+				break;
+			}
+		}
+	}
+
 	public void setData(String value) {
-		Log.d("setDate", value);
+		//Log.d("setDate", value);
 		this.data.put(String.valueOf(this.actionAmount), value);
 		this.actionAmount ++;
 	}
@@ -42,7 +70,7 @@ public class ActionManager {
 			ans = this.data.get(String.valueOf(this.line));
 			this.line ++;
 		}
-		Log.d("getDate", String.valueOf(ans));
+		//if(ans != null) Log.d("getDate", String.valueOf(ans));
 		return ans;
 	}
 

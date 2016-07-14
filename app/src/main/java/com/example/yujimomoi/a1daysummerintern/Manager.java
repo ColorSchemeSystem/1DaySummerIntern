@@ -25,7 +25,7 @@ public class Manager extends Activity {
 	public void init() {
 		Log.d("init", "Manager");
 		this.actionManager = new ActionManager();
-		this.player = new Player(this.actionManager);
+		this.player = new Player(this);
 
 		this.player.init();
 		this.actionManager.init();
@@ -40,7 +40,7 @@ public class Manager extends Activity {
 //            action = this.actionManager.getDataOneLine();
 //        }
 
-		Player hoge = new Player(this.actionManager);
+		Player hoge = new Player(this);
 		hoge.init();
 		hoge.point.x = 300;
 		hoge.point.y = 300;
@@ -52,15 +52,18 @@ public class Manager extends Activity {
 		// オブジェクトの動きの設定
 		this.actionManager.setActionWrite();
 
-		this.player.move(50);
+		//this.player.move(60);
 		this.player.turn(90);
-		this.player.move(50);
+		this.player.move(120);
 
 		// オブジェクトの動きの設定を終了
 		this.actionManager.setActionWriteEnd();
+
+		//this.actionManager.update();
 	}
 
 	public void update() {
+		this.actionManager.update();
 		this.player.update();
 	}
 
@@ -70,5 +73,9 @@ public class Manager extends Activity {
 		if(viewRendere != null) texture = viewRendere.getTexture(id);
 		Log.d("Manager", "getTexture texture : " + String.valueOf(texture));
 		return texture;
+	}
+
+	public void setData(String data) {
+		this.actionManager.setData(data);
 	}
 }
