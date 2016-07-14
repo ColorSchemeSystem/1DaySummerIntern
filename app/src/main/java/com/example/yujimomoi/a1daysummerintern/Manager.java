@@ -52,6 +52,7 @@ public class Manager extends Activity {
 		// オブジェクトの動きの設定
 		this.actionManager.setActionWrite();
 
+		this.player.turn(90);
 		this.player.move(60);
 		this.player.turn(90);
 		this.player.move(120);
