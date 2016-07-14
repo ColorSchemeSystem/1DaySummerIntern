@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.KeyEvent;
 
 import com.example.yujimomoi.a1daysummerintern.classFile.Player;
-import com.example.yujimomoi.a1daysummerintern.test.TestSurfaceView;
 
 import java.util.TimerTask;
 
@@ -25,38 +24,11 @@ public class MainActivity extends AppCompatActivity {
 		//setContentView(R.layout.activity_main);
 
 		ViewRendere viewRendere = new ViewRendere(this);
-		setContentView(viewRendere);
 
 		final Manager manager = new Manager(viewRendere);
 		manager.init();
+		viewRendere.setManager(manager);
 
-		handler.postDelayed(new Runnable() {
-			@Override
-			public void run() {
-				manager.update();
-				handler.postDelayed(this, FPS);
-			}
-		}, FPS);
-
-//		updateText = new Runnable() {
-//			@Override
-//			public void run() {
-//				manager.update();
-//				handler.removeCallbacks(updateText);
-//				handler.postDelayed(updateText, FPS);
-//			}
-//		};
-//		handler.postDelayed(updateText, FPS);
-	}
-
-	@Override
-	public boolean dispatchKeyEvent(KeyEvent e) {
-		Log.d("key_Event", "in");
-		if (e.getKeyCode() == KeyEvent.KEYCODE_W) {
-			if(e.getAction() == KeyEvent.ACTION_DOWN) {
-				//this.player.point.y += 0.1f;
-			}
-		}
-		return super.dispatchKeyEvent(e);
+		setContentView(viewRendere);
 	}
 }

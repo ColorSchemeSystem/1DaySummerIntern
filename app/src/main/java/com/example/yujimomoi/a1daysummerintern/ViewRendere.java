@@ -6,6 +6,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Typeface;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -23,42 +25,51 @@ import java.util.concurrent.TimeUnit;
  * Created by yuji.momoi on 2016/07/08.
  */
 public class ViewRendere extends SurfaceView implements SurfaceHolder.Callback{
-	private Thread thread; //描画スレッド
 	private BaseObject obj[];
-	private Context cont;
 	private int texture_name_list[] = {R.drawable._app_icon_dameo};
 	private Bitmap texture_list[];
+	private static final long INTERVAL_PERIOD = 16;
 	private ScheduledExecutorService scheduledExecutorService;
+	private static final float FONT_SIZE = 48f;
+	private Paint paintFps;
 	private ArrayList<Long> intervalTime = new ArrayList<Long>(20);
+	private Manager manager = null;
 
 	public ViewRendere(Context context) {
 		super(context);
+		init();
+	}
+
+	public ViewRendere(Context context, AttributeSet attrs) {
+		super(context, attrs);
+		init();
+	}
+
+	public ViewRendere(Context context, AttributeSet attrs, int defStyle) {
+		super(context, attrs, defStyle);
+		init();
+	}
+
+	public void init () {
 		this.texture_list = new Bitmap[texture_name_list.length];
 		for(int i = 0;i < texture_name_list.length;i++) {
 			this.texture_list[i] = BitmapFactory.decodeResource(getResources(), texture_name_list[i]);
 		}
-		this.thread = null;
 		this.obj = null;
-		this.cont = context;
-		getHolder().addCallback(this);
+		SurfaceHolder surfaceHolder = getHolder();
+		surfaceHolder.addCallback(this);
 
-		for(int i = 0;i < 20;i++) {
+		// fps 計測用の設定値の初期化
+		for (int i = 0; i < 19; i++) {
 			intervalTime.add(System.currentTimeMillis());
 		}
-	}
 
-	// 描画用スレッド
-	private class DrawThread extends Thread {
-		public void run() {
-			SurfaceHolder holder = getHolder();
-			while(true) {
-				Canvas canvas = holder.lockCanvas();
-				if (canvas != null) {
-					mydraw(canvas);
-					holder.unlockCanvasAndPost(canvas);
-				}
-			}
-		}
+		// 描画に関する各種設定
+		paintFps = new Paint();
+		paintFps.setTypeface(Typeface.DEFAULT);
+		paintFps.setTextSize(FONT_SIZE);
+		paintFps.setColor(Color.BLACK);
+		paintFps.setAntiAlias(true);
 	}
 
 	// 描画
@@ -84,31 +95,37 @@ public class ViewRendere extends SurfaceView implements SurfaceHolder.Callback{
 		return null;
 	}
 
-	public void surfaceCreated(final SurfaceHolder holder) {
-		thread = new DrawThread();
-		thread.start();
+	public void surfaceCreated(final SurfaceHolder surfaceHolder) {
+//		thread = new DrawThread();
+//		thread.start();
 
-//		scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
-//		scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
-//			@Override
-//			public void run() {
-//				intervalTime.add(System.currentTimeMillis());
-//				float fps = 20000 / (intervalTime.get(19) - intervalTime.get(0));
-//
-//				Canvas canvas = holder.lockCanvas();
-//				//mydraw(canvas);
-//				Paint paint = new Paint();
-//				canvas.drawText(String.format("%.1f fps", fps), 0 ,24f, new Paint());
-//				holder.unlockCanvasAndPost(canvas);
-//			}
-//		}, 60 / 1000, 16, TimeUnit.MILLISECONDS);
+		// SingleThreadScheduledExecutor による単一 Thread のインターバル実行
+		scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
+		scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
+			@Override
+			public void run() {
+				// fps（実測値）の計測
+				intervalTime.add(System.currentTimeMillis());
+				float fps = 20000 / (intervalTime.get(19) - intervalTime.get(0));
+				intervalTime.remove(0);
+
+				// ロックした Canvas の取得
+				Canvas canvas = surfaceHolder.lockCanvas();
+				if(manager != null) manager.update();
+				mydraw(canvas);
+				canvas.drawText(String.format("%.0f fps", fps), 0, FONT_SIZE, paintFps);
+				// ロックした Canvas の解放
+				surfaceHolder.unlockCanvasAndPost(canvas);
+			}
+		}, 100, INTERVAL_PERIOD, TimeUnit.MILLISECONDS);
 	}
 
 	public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
 	}
 
-	public void surfaceDestroyed(SurfaceHolder holder) {
-		thread = null;
+	public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
+		scheduledExecutorService.shutdown();
+		surfaceHolder.removeCallback(this);
 	}
 
 	public void setObject(BaseObject object) {
@@ -123,5 +140,9 @@ public class ViewRendere extends SurfaceView implements SurfaceHolder.Callback{
 		array[array.length - 1] = object;
 		Log.d("ViewRendere", "set : " + String.valueOf(length));
 		this.obj = array;
+	}
+
+	public void setManager(Manager manager) {
+		this.manager = manager;
 	}
 }
