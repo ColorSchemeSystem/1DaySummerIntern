@@ -1,7 +1,7 @@
 package com.example.yujimomoi.a1daysummerintern;
 
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
+import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -10,7 +10,7 @@ import com.example.yujimomoi.a1daysummerintern.classFile.Player;
 
 import java.util.TimerTask;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
 	private Handler handler = new Handler();
 	private Runnable updateText;

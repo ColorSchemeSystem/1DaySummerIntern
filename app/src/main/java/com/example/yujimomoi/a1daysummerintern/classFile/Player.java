@@ -1,5 +1,6 @@
 package com.example.yujimomoi.a1daysummerintern.classFile;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -66,8 +67,6 @@ public class Player extends BaseObject {
 	public static void changeAllTexColor() {}
 
 	public void move(int amountOfMove) {
-//		this.point.x += Math.sin(this.rotation) * amountOfMove;
-//		this.point.y += -Math.cos(this.rotation) * amountOfMove;
 		if(ActionManager.getWriteAction()) {
 			//this.manager.setData(this.id + " move " + String.valueOf(amountOfMove) + " false");
 			for(int i = 0;i < amountOfMove/5;i++) {
@@ -80,7 +79,6 @@ public class Player extends BaseObject {
 
 	public void moveWithLine(int amountOfMove) {
 		if(ActionManager.getWriteAction()) {
-//			this.manager.setData(this.id + " move " + String.valueOf(amountOfMove) + " false");
 			for(int i = 0;i < amountOfMove;i++) {
 				this.manager.setData(this.id + " move 1 false");
 			}
@@ -90,9 +88,6 @@ public class Player extends BaseObject {
 	}
 
 	public void turn(int degree) {
-//		this.rotation += degree;
-//		if (this.rotation > 360) this.rotation -= 360;
-//		if (this.rotation < 0) this.rotation += 360;
 		if(ActionManager.getWriteAction()) {
 			this.manager.setData(this.id + " turn " + degree);
 		} else {

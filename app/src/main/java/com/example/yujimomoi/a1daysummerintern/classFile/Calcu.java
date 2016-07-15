@@ -1,5 +1,6 @@
 package com.example.yujimomoi.a1daysummerintern.classFile;
 
+import android.util.FloatMath;
 import android.util.Log;
 
 import java.math.BigDecimal;
@@ -17,13 +18,5 @@ public class Calcu {
 		nowPoint.x += Math.cos(rad) * amountOfMove;
 		nowPoint.y -= Math.sin(rad) * amountOfMove;
 		return nowPoint;
-//		BigDecimal x = new BigDecimal(nowPoint.x);
-//		BigDecimal y = new BigDecimal(nowPoint.y);
-//		BigDecimal amountX = new BigDecimal(Math.sin(rotation) * amountOfMove);
-//		BigDecimal amountY = new BigDecimal(-Math.cos(rotation) * amountOfMove);
-//		Point point = new Point();
-//		point.x = x.add(amountX).doubleValue();
-//		point.y = y.add(amountY).doubleValue();
-//		return point;
 	};
 }
