@@ -16,6 +16,7 @@ public class ActionManager {
 	private int actionAmount;
 	private int line;
 	private static boolean writeAction = false;
+	private static String line_status;
 	private StringData data_buff[];
 	private int data_buff_amount[];
 	private int data_buff_cnt[];
@@ -28,6 +29,7 @@ public class ActionManager {
 		this.line = 0;
 		this.action_flag = false;
 		writeAction = false;
+		this.line_status = "sleep";
 	}
 
 	public void init() {
@@ -60,12 +62,28 @@ public class ActionManager {
 					{
 						int amount = Integer.parseInt(action[2]);
 						boolean line = Boolean.parseBoolean(action[3]);
-						if(!line) BaseObject.move(i, amount);
-						else BaseObject.moveWithLine(i, amount);
+						if(!line) {
+							if (this.line_status.equals("run")){
+								BaseObject.finishDrawLine(i);
+								this.line_status = "sleep";
+							}
+							BaseObject.move(i, amount);
+						}
+						else {
+							if (this.line_status.equals("sleep")){
+								BaseObject.startDrawLine(i);
+								this.line_status = "run";
+							}
+							BaseObject.moveWithLine(i, amount);
+						}
 					}
 					break;
 					case "turn":
 					{
+						if (this.line_status.equals("run")){
+							BaseObject.finishDrawLine(i);
+							this.line_status = "sleep";
+						}
 						int degree = Integer.parseInt(action[2]);
 						BaseObject.turn(i, degree);
 					}
