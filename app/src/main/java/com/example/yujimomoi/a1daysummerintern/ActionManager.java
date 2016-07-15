@@ -15,6 +15,7 @@ public class ActionManager {
 	private int actionAmount;
 	private int line;
 	private static boolean writeAction = false;
+	private static String line_status;
 
 	public ActionManager() {
 		Log.d("create", "ActionManager");
@@ -22,6 +23,7 @@ public class ActionManager {
 		this.actionAmount = 0;
 		this.line = 0;
 		writeAction = false;
+		this.line_status = "sleep";
 	}
 
 	public void init() {
@@ -40,16 +42,30 @@ public class ActionManager {
 		int id = Integer.parseInt(act[0]);
 		if(id < BaseObject.max_id) {
 			switch (act[1]) {
-				case "move":
-				{
+				case "move": {
 					int amount = Integer.parseInt(act[2]);
 					boolean line = Boolean.parseBoolean(act[3]);
-					if(!line) BaseObject.move(id, amount);
-					else BaseObject.moveWithLine(id, amount);
+					if (!line) {
+						if (this.line_status.equals("run")){
+							BaseObject.finishDrawLine(id);
+							this.line_status = "sleep";
+						}
+						BaseObject.move(id, amount);
+					} else {
+						if (this.line_status.equals("sleep")){
+							BaseObject.startDrawLine(id);
+							this.line_status = "run";
+						}
+						BaseObject.moveWithLine(id, amount);
+					}
 				}
 				break;
 				case "turn":
 				{
+					if (this.line_status.equals("run")){
+						BaseObject.finishDrawLine(id);
+						this.line_status = "sleep";
+					}
 					int degree = Integer.parseInt(act[2]);
 					BaseObject.turn(id, degree);
 				}

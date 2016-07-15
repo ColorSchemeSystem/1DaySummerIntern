@@ -80,4 +80,28 @@ public class BaseObject {
 			break;
 		}
 	}
+
+	public static void startDrawLine(int targetId){
+		if(targetId >= max_id) return;
+		BaseObject target = objList.get(targetId);
+		switch (target.obj_type){
+			case OBJ_TYPE_PLAYER:
+			{
+				Player player = (Player) target;
+				player.startDrawLine(player.getPoint());
+			}
+		}
+	}
+
+	public static void finishDrawLine(int targetId){
+		if(targetId >= max_id) return;
+		BaseObject target = objList.get(targetId);
+		switch (target.obj_type){
+			case OBJ_TYPE_PLAYER:
+			{
+				Player player = (Player) target;
+				player.finishDrawLine();
+			}
+		}
+	}
 }
