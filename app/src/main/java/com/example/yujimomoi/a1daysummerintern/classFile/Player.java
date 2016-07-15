@@ -28,7 +28,8 @@ public class Player extends BaseObject {
 	private Matrix matrix;
 	private String status;
 	private Paint paint;
-	private ArrayList<Double> points;
+	private ArrayList<Point> start_points;
+	private ArrayList<Point> end_points;
 	private float start_line_x;
 	private float start_line_y;
 	private float end_line_x;
@@ -62,17 +63,17 @@ public class Player extends BaseObject {
 		this.matrix.postScale(1.0f, 1.0f);
 		super.setObj(this);
 		this.paint = new Paint();
-		this.points = new ArrayList<Double> ();
-		this.points.add(-10000.0);
-		Log.d("Player","width : " + this.texture.getWidth());
-		Log.d("Player","height : " + this.texture.getHeight());
-		Log.d("init_end", "Player");
+		this.start_points = new ArrayList <Point>();
+		this.end_points = new ArrayList <Point>();
+//		Log.d("Player","width : " + this.texture.getWidth());
+//		Log.d("Player","height : " + this.texture.getHeight());
+//		Log.d("init_end", "Player");
 	}
 
 	@Override
 	public void update() {
-		Log.d("Player","posX" + point.x);
-		Log.d("Player","posY" + point.y);
+//		Log.d("Player","posX" + point.x);
+//		Log.d("Player","posY" + point.y);
 	};
 
 	@Override
@@ -84,7 +85,15 @@ public class Player extends BaseObject {
 				{
 					Log.d("draw", "MOVE");
 					Bitmap bitmap = Bitmap.createScaledBitmap(this.texture, 60, 100, false);
-					canvas.drawBitmap(bitmap, this.matrix, new Paint());
+					if(this.start_points.size() == this.end_points.size()) {
+						int i = 0;
+						for (Point startPoint : this.start_points) {
+							Point endPoint = this.end_points.get(i);
+							canvas.drawLine((float)startPoint.x, (float)startPoint.y, (float)endPoint.x, (float)endPoint.y, paint);
+							i++;
+						}
+					}
+					canvas.drawBitmap(this.texture, this.matrix, new Paint());
 				}
 				break;
 
@@ -93,27 +102,16 @@ public class Player extends BaseObject {
 					paint.setColor(Color.rgb(0, 0, 0));
 					Log.d("draw", "Ox = " + this.old_point.x + ", Oy = " + this.old_point.y + ", x = " + this.point.x + ", y = " + this.point.y);
 					Bitmap bitmap = Bitmap.createScaledBitmap(this.texture, 60, 100, false);
-					canvas.drawBitmap(bitmap, this.matrix, new Paint());
+					if(this.start_points.size() == this.end_points.size()) {
+						int i = 0;
+						for (Point startPoint : this.start_points) {
+							Point endPoint = this.end_points.get(i);
+							canvas.drawLine((float)startPoint.x, (float)startPoint.y, (float)endPoint.x, (float)endPoint.y, paint);
+							i++;
+						}
+					}
 					canvas.drawLine(this.start_line_x, this.start_line_y, this.end_line_x, this.end_line_y, paint);
-//					for(Double d : this.points){
-//						Log.d("list", "" + d);
-//					}
-//					int i = 0;
-//					float pointsArray[] = new float[this.points.size()];
-//					for(Double d : this.points){
-//						if(d == -10000.0){
-//							Log.d("draw", "書き出し");
-//							for(float f : pointsArray){
-//								Log.d("書き出し配列", "array = " + f);
-//							}
-//							canvas.drawLines(pointsArray, paint);
-//							pointsArray = new float[this.points.size()];
-//							i = 0;
-//						}else{
-//							pointsArray[i] = d.floatValue();
-//							i++;
-//						}
-//					}
+					canvas.drawBitmap(this.texture, this.matrix, new Paint());
 				}
 				break;
 
@@ -121,7 +119,15 @@ public class Player extends BaseObject {
 				{
 					Log.d("draw", "TURN");
 					Bitmap bitmap = Bitmap.createScaledBitmap(this.texture, 60, 100, false);
-					canvas.drawBitmap(bitmap, this.matrix, new Paint());
+					if(this.start_points.size() == this.end_points.size()) {
+						int i = 0;
+						for (Point startPoint : this.start_points) {
+							Point endPoint = this.end_points.get(i);
+							canvas.drawLine((float)startPoint.x, (float)startPoint.y, (float)endPoint.x, (float)endPoint.y, paint);
+							i++;
+						}
+					}
+					canvas.drawBitmap(this.texture, this.matrix, new Paint());
 				}
 				break;
 			}
@@ -191,8 +197,8 @@ public class Player extends BaseObject {
 			this.matrix.postTranslate((float)(this.point.x - this.old_point.x), (float)(this.point.y - this.old_point.y));
 			this.status = "line";
 			if(line_status.equals("run")){
-				this.end_line_x = (float)this.point.x;
-				this.end_line_y = (float)this.point.y;
+				this.end_line_x = (float)this.point.x + this.texture.getWidth() / 2;
+				this.end_line_y = (float)this.point.y + this.texture.getHeight() / 2;
 			}
 //			this.points.add(this.point.x);
 //			this.points.add(this.point.y);
@@ -215,13 +221,14 @@ public class Player extends BaseObject {
 			if (this.rotation < 0) this.rotation += 360;
 			this.matrix.postTranslate(-(float)this.point.x - (this.texture.getWidth() / 2.0f), -(float)this.point.y - (this.texture.getHeight() / 2.0f));
 			this.matrix.postRotate(degree);
+			this.matrix.postTranslate((float)this.point.x + (this.texture.getWidth() / 2.0f), (float)this.point.y + (this.texture.getHeight() / 2.0f));
 			this.status = "turn";
 		}
 	}
 
 	public void startDrawLine(Point point){
-		this.start_line_x = (float)this.point.x;
-		this.start_line_y = (float)this.point.y;
+		this.start_line_x = (float)this.point.x  + this.texture.getWidth() / 2;
+		this.start_line_y = (float)this.point.y  + this.texture.getHeight() / 2;
 		this.line_status = "run";
 //		this.points.add(point.x);
 //		this.points.add(point.y);
@@ -229,6 +236,10 @@ public class Player extends BaseObject {
 
 	public void finishDrawLine(){
 		this.line_status = "sleep";
+		Point startPoint = new Point(this.start_line_x, this.start_line_y);
+		Point endPoint = new Point(this.end_line_x, this.end_line_y);
+		this.start_points.add(startPoint);
+		this.end_points.add(endPoint);
 //		this.points.add(-10000.0);
 	}
 
