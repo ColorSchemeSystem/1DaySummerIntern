@@ -106,7 +106,7 @@ public class ViewRendere extends SurfaceView implements SurfaceHolder.Callback{
 			public void run() {
 				// fps（実測値）の計測
 				intervalTime.add(System.currentTimeMillis());
-				float fps = 20000 / (intervalTime.get(19) - intervalTime.get(0));
+				float fps = 20000 / (intervalTime.get(19) - intervalTime.get(3));
 				intervalTime.remove(0);
 
 				// ロックした Canvas の取得

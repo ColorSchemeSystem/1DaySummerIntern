@@ -26,8 +26,9 @@ public class Manager extends Activity {
 		Log.d("init", "Manager");
 		this.actionManager = new ActionManager();
 		this.player = new Player(this);
-
 		this.player.init();
+		this.player.point.x = 400;
+		this.player.point.y = 400;
 		this.actionManager.init();
 
 //        this.actionManager.setData("test1");
@@ -40,22 +41,26 @@ public class Manager extends Activity {
 //            action = this.actionManager.getDataOneLine();
 //        }
 
-		Player hoge = new Player(this);
-		hoge.init();
-		hoge.point.x = 300;
-		hoge.point.y = 300;
+//		Player hoge = new Player(this);
+//		hoge.init();
+//		hoge.point.x = 300;
+//		hoge.point.y = 300;
 
 		this.viewRendere.setObject(this.player);
-		this.viewRendere.setObject(hoge);
+		//this.viewRendere.setObject(hoge);
 		Log.d("init_end", "Manager");
 
 		// オブジェクトの動きの設定
 		this.actionManager.setActionWrite();
 
-		this.player.turn(90);
-		this.player.move(60);
-		this.player.turn(90);
-		this.player.move(120);
+		//this.player.turn(90);
+		this.player.move(100);
+		this.player.turn(45);
+		this.player.move(100);
+//		this.player.turn(45);
+//		this.player.move(100);
+//		this.player.turn(90);
+//		this.player.move(100);
 
 		// オブジェクトの動きの設定を終了
 		this.actionManager.setActionWriteEnd();
