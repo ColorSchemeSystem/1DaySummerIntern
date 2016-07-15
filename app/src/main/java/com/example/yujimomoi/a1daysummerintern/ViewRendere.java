@@ -96,9 +96,6 @@ public class ViewRendere extends SurfaceView implements SurfaceHolder.Callback{
 	}
 
 	public void surfaceCreated(final SurfaceHolder surfaceHolder) {
-//		thread = new DrawThread();
-//		thread.start();
-
 		// SingleThreadScheduledExecutor による単一 Thread のインターバル実行
 		scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
 		scheduledExecutorService.scheduleAtFixedRate(new Runnable() {

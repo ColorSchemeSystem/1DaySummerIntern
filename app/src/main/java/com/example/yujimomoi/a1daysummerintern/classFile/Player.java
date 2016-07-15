@@ -46,6 +46,8 @@ public class Player extends BaseObject {
 		this.matrix = new Matrix();
 		this.matrix.postScale(1.0f, 1.0f);
 		super.setObj(this);
+		Log.d("Player","width : " + this.texture.getWidth());
+		Log.d("Player","height : " + this.texture.getHeight());
 		Log.d("init_end", "Player");
 	}
 
@@ -70,12 +72,14 @@ public class Player extends BaseObject {
 	public void setPoint(double pointX, double pointY) {
 		this.point.x = pointX;
 		this.point.y = pointY;
-		this.matrix.setTranslate((float)this.point.x + (this.texture.getWidth() / 2), (float)this.point.y + (this.texture.getHeight() / 2));
+		this.matrix.setTranslate((float)this.point.x, (float)this.point.y);
+		this.matrix.postRotate(this.rotation);
 	}
 
 	public void setPoint(Point point) {
 		this.point = point;
-		this.matrix.setTranslate((float)this.point.x + (this.texture.getWidth() / 2), (float)this.point.y + (this.texture.getHeight() / 2));
+		this.matrix.reset();
+		this.matrix.setTranslate((float)this.point.x, (float)this.point.y);
 		this.matrix.postRotate(this.rotation);
 	}
 
@@ -99,26 +103,25 @@ public class Player extends BaseObject {
 				amountOfMove -= MOVE_MAX;
 			}
 		} else {
-			this.point = Calcu.calcuPoint(this.point, this.rotation, amountOfMove);
-			Log.d("Player","moveX : " + (this.point.x - this.old_point.x));
-			Log.d("Player","moveY : " + (this.point.y - this.old_point.y));
-			Log.d("Player","posX : " + this.point.x);
-			Log.d("Player","posY : " + this.point.y);
-			Log.d("Player","oldX : " + this.old_point.x);
-			Log.d("Player","oldY : " + this.old_point.y);
-			Log.d("Player","rotate : " + this.rotation);
-			Log.d("Player","amount : " + amountOfMove);
+			this.point = Calcu.calcuPoint(this.point, 90 - this.rotation, amountOfMove);
 			this.matrix.postTranslate((float)(this.point.x - this.old_point.x), (float)(this.point.y - this.old_point.y));
 		}
 	}
 
 	public void moveWithLine(int amountOfMove) {
+		this.old_point = new Point(this.point);
 		if(ActionManager.getWriteAction()) {
-			for(int i = 0;i < amountOfMove;i++) {
-				this.manager.setData(this.id + " move 1 false");
+			while(amountOfMove > 0) {
+				if(amountOfMove >= MOVE_MAX) {
+					this.manager.setData(this.id + " move " + MOVE_MAX + " true");
+				} else {
+					this.manager.setData(this.id + " move " + amountOfMove + " true");
+				}
+				amountOfMove -= MOVE_MAX;
 			}
 		} else {
-			//this.point = Calcu.calcuPoint(this.point, this.rotation, amountOfMove);
+			this.point = Calcu.calcuPoint(this.point, 90 - this.rotation, amountOfMove);
+			this.matrix.postTranslate((float)(this.point.x - this.old_point.x), (float)(this.point.y - this.old_point.y));
 		}
 	}
 
@@ -130,16 +133,19 @@ public class Player extends BaseObject {
 				} else {
 					this.manager.setData(this.id + " turn " + degree);
 				}
-				Log.d("Player","turn : " + String.valueOf(degree));
 				degree -= TURN_MAX;
 			}
 		} else {
 			this.rotation += degree;
 			if (this.rotation > 360) this.rotation -= 360;
 			if (this.rotation < 0) this.rotation += 360;
-			this.matrix.postTranslate(-(float)this.point.x - (this.texture.getWidth() / 2), -(float)this.point.y - (this.texture.getHeight() / 2));
+//			Log.d("Player","posX : " + this.point.x);
+//			Log.d("Player","posY : " + this.point.y);
+//			Log.d("Player","centerX : " + this.point.x);
+//			Log.d("Player","centerY : " + this.point.y);
+			this.matrix.postTranslate(-(float)this.point.x - (this.texture.getWidth() / 2.0f), -(float)this.point.y - (this.texture.getHeight() / 2.0f));
 			this.matrix.postRotate(degree);
-			this.matrix.postTranslate((float)this.point.x + (this.texture.getWidth() / 2), (float)this.point.y + (this.texture.getHeight() / 2));
+			this.matrix.postTranslate((float)this.point.x + (this.texture.getWidth() / 2.0f), (float)this.point.y + (this.texture.getHeight() / 2.0f));
 		}
 	}
 }
