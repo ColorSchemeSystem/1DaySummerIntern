@@ -144,4 +144,8 @@ public class Player extends BaseObject {
 			this.matrix.postTranslate((float)this.point.x + (this.texture.getWidth() / 2.0f), (float)this.point.y + (this.texture.getHeight() / 2.0f));
 		}
 	}
+
+	public void setTexture(int textureId) {
+		this.texture = Manager.getTexture(textureId);
+	}
 }
