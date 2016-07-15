@@ -1,10 +1,5 @@
 package com.example.yujimomoi.a1daysummerintern.classFile;
 
-import android.util.FloatMath;
-import android.util.Log;
-
-import java.math.BigDecimal;
-
 /**
  * Created by yuji.momoi on 2016/07/07.
  */

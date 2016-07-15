@@ -1,11 +1,17 @@
 package com.example.yujimomoi.a1daysummerintern;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.Log;
-import android.view.KeyEvent;
 
 import com.example.yujimomoi.a1daysummerintern.classFile.Player;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 /**
  * Created by yuji.momoi on 2016/07/07.
@@ -24,49 +30,29 @@ public class Manager extends Activity {
 
 	public void init() {
 		Log.d("init", "Manager");
-		this.actionManager = new ActionManager();
 		this.player = new Player(this);
 		this.player.init();
 		this.player.setPoint(400, 400);
-		this.actionManager.init();
 
-//        this.actionManager.setData("test1");
-//        this.actionManager.setData("test2");
-//        this.actionManager.setData("test3");
-//
-//        String action = this.actionManager.getDataOneLine();
-//        while (action != null) {
-//            Log.d("action", action);
-//            action = this.actionManager.getDataOneLine();
-//        }
-
-//		Player hoge = new Player(this);
-//		hoge.init();
-//		hoge.point.x = 300;
-//		hoge.point.y = 300;
+		Player hoge = new Player(this);
+		hoge.init();
 
 		this.viewRendere.setObject(this.player);
-		//this.viewRendere.setObject(hoge);
-		Log.d("init_end", "Manager");
+		this.viewRendere.setObject(hoge);
 
+		this.actionManager = new ActionManager();
+		this.actionManager.init();
 		// オブジェクトの動きの設定
 		this.actionManager.setActionWrite();
 
 
-		//this.player.turn(90);
-		this.player.moveWithLine(200);
 		this.player.turn(90);
-		this.player.moveWithLine(200);
-		this.player.turn(90);
-		this.player.moveWithLine(200);
-		this.player.turn(90);
-		this.player.moveWithLine(200);
+		this.player.move(100);
 
 
 		// オブジェクトの動きの設定を終了
 		this.actionManager.setActionWriteEnd();
-
-		//this.actionManager.update();
+		Log.d("init_end", "Manager");
 	}
 
 	public void update() {

@@ -64,11 +64,15 @@ public class Player extends BaseObject {
 		this.paint = new Paint();
 		this.points = new ArrayList<Double> ();
 		this.points.add(-10000.0);
+		Log.d("Player","width : " + this.texture.getWidth());
+		Log.d("Player","height : " + this.texture.getHeight());
 		Log.d("init_end", "Player");
 	}
 
 	@Override
 	public void update() {
+		Log.d("Player","posX" + point.x);
+		Log.d("Player","posY" + point.y);
 	};
 
 	@Override
@@ -78,7 +82,7 @@ public class Player extends BaseObject {
 			switch (this.status){
 				case "move":
 				{
-					//Log.d("draw", "MOVE");
+					Log.d("draw", "MOVE");
 					Bitmap bitmap = Bitmap.createScaledBitmap(this.texture, 60, 100, false);
 					canvas.drawBitmap(bitmap, this.matrix, new Paint());
 				}
@@ -115,10 +119,11 @@ public class Player extends BaseObject {
 
 				case "turn":
 				{
-					//Log.d("draw", "TURN");
+					Log.d("draw", "TURN");
 					Bitmap bitmap = Bitmap.createScaledBitmap(this.texture, 60, 100, false);
 					canvas.drawBitmap(bitmap, this.matrix, new Paint());
 				}
+				break;
 			}
 			canvas.restore();
 			//Log.d("point", "x = " + this.point.x + ", y = " + this.point.y);
@@ -133,12 +138,14 @@ public class Player extends BaseObject {
 	public void setPoint(double pointX, double pointY) {
 		this.point.x = pointX;
 		this.point.y = pointY;
-		this.matrix.setTranslate((float)this.point.x + (this.texture.getWidth() / 2), (float)this.point.y + (this.texture.getHeight() / 2));
+		this.matrix.setTranslate((float)this.point.x, (float)this.point.y);
+		this.matrix.postRotate(this.rotation);
 	}
 
 	public void setPoint(Point point) {
 		this.point = point;
-		this.matrix.setTranslate((float)this.point.x + (this.texture.getWidth() / 2), (float)this.point.y + (this.texture.getHeight() / 2));
+		this.matrix.reset();
+		this.matrix.setTranslate((float)this.point.x, (float)this.point.y);
 		this.matrix.postRotate(this.rotation);
 	}
 
@@ -162,15 +169,7 @@ public class Player extends BaseObject {
 				amountOfMove -= MOVE_MAX;
 			}
 		} else {
-			this.point = Calcu.calcuPoint(this.point, this.rotation, amountOfMove);
-//			Log.d("Player","moveX : " + (this.point.x - this.old_point.x));
-//			Log.d("Player","moveY : " + (this.point.y - this.old_point.y));
-//			Log.d("Player","posX : " + this.point.x);
-//			Log.d("Player","posY : " + this.point.y);
-//			Log.d("Player","oldX : " + this.old_point.x);
-//			Log.d("Player","oldY : " + this.old_point.y);
-//			Log.d("Player","rotate : " + this.rotation);
-//			Log.d("Player","amount : " + amountOfMove);
+			this.point = Calcu.calcuPoint(this.point, 90 - this.rotation, amountOfMove);
 			this.matrix.postTranslate((float)(this.point.x - this.old_point.x), (float)(this.point.y - this.old_point.y));
 			this.status = "move";
 		}
@@ -188,7 +187,7 @@ public class Player extends BaseObject {
 				amountOfMove -= MOVE_MAX;
 			}
 		} else {
-			this.point = Calcu.calcuPoint(this.point, this.rotation, amountOfMove);
+			this.point = Calcu.calcuPoint(this.point, 90 - this.rotation, amountOfMove);
 			this.matrix.postTranslate((float)(this.point.x - this.old_point.x), (float)(this.point.y - this.old_point.y));
 			this.status = "line";
 			if(line_status.equals("run")){
@@ -208,16 +207,14 @@ public class Player extends BaseObject {
 				} else {
 					this.manager.setData(this.id + " turn " + degree);
 				}
-				//Log.d("Player","turn : " + String.valueOf(degree));
 				degree -= TURN_MAX;
 			}
 		} else {
 			this.rotation += degree;
 			if (this.rotation > 360) this.rotation -= 360;
 			if (this.rotation < 0) this.rotation += 360;
-			this.matrix.postTranslate(-(float)this.point.x - (this.texture.getWidth() / 2), -(float)this.point.y - (this.texture.getHeight() / 2));
+			this.matrix.postTranslate(-(float)this.point.x - (this.texture.getWidth() / 2.0f), -(float)this.point.y - (this.texture.getHeight() / 2.0f));
 			this.matrix.postRotate(degree);
-			this.matrix.postTranslate((float)this.point.x + (this.texture.getWidth() / 2), (float)this.point.y + (this.texture.getHeight() / 2));
 			this.status = "turn";
 		}
 	}
@@ -233,5 +230,9 @@ public class Player extends BaseObject {
 	public void finishDrawLine(){
 		this.line_status = "sleep";
 //		this.points.add(-10000.0);
+	}
+
+	public void setTexture(int textureId) {
+		this.texture = Manager.getTexture(textureId);
 	}
 }

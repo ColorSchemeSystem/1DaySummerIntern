@@ -1,22 +1,9 @@
 package com.example.yujimomoi.a1daysummerintern;
 
-import android.os.Handler;
-import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.KeyEvent;
+import android.support.v7.app.AppCompatActivity;
 
-import com.example.yujimomoi.a1daysummerintern.classFile.Player;
-
-import java.util.TimerTask;
-
-public class MainActivity extends Activity {
-
-	private Handler handler = new Handler();
-	private Runnable updateText;
-	private TimerTask timerTask;
-
-	private long FPS = 60 / 1000;
+public class MainActivity extends AppCompatActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
