@@ -1,7 +1,6 @@
 package com.example.yujimomoi.a1daysummerintern.classFile;
 
 import android.graphics.Canvas;
-import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -30,11 +29,7 @@ public class BaseObject {
 	public void draw(Canvas canvas){}
 
 	public static void move(int targetId, int amountOfMove) {
-		Log.d("BaseObject","move  id = " + String.valueOf(targetId));
-		if(targetId >= max_id) {
-			Log.d("BaseObject","return id");
-			return;
-		}
+		if(targetId >= max_id) return;
 		BaseObject target = null;
 		for (BaseObject o : objList) {
 			if(o.id == targetId) {
@@ -42,11 +37,7 @@ public class BaseObject {
 				break;
 			}
 		}
-		if(target == null) {
-			Log.d("BaseObject","return target");
-			return;
-		}
-		Log.d("BaseObject","target get sucssece");
+		if(target == null) return;
 		switch (target.obj_type) {
 			case OBJ_TYPE_PLAYER:
 			{

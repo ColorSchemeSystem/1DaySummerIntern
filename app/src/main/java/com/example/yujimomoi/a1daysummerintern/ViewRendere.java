@@ -15,7 +15,6 @@ import android.view.SurfaceView;
 import com.example.yujimomoi.a1daysummerintern.classFile.BaseObject;
 
 import java.util.ArrayList;
-import java.util.StringTokenizer;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;

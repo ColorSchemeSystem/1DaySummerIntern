@@ -3,7 +3,6 @@ package com.example.yujimomoi.a1daysummerintern;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.util.Log;
-import android.view.KeyEvent;
 
 import com.example.yujimomoi.a1daysummerintern.classFile.Player;
 
