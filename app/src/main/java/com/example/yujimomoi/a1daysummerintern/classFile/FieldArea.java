@@ -8,19 +8,19 @@ import android.util.Log;
 public class FieldArea {
 	private int field_width;
 	private int field_height;
-	private String line_color;
+	private LineData line_data;
 
 	public FieldArea() {
 		Log.d("create", "FieldArea");
-		field_width = 0;
-		field_height = 0;
-		line_color = null;
+		this.field_width = 0;
+		this.field_height = 0;
+		this.line_data = null;
 	}
 
 	public void init(int width,int height) {
 		Log.d("init", "FieldArea");
-		field_width = width;
-		field_height = height;
+		this.field_width = width;
+		this.field_height = height;
 	}
 
 	public void init() {
@@ -33,11 +33,11 @@ public class FieldArea {
 	}
 
 	public int getFieldWidth() {
-		return field_width;
+		return this.field_width;
 	}
 
 	public int getFieldHeight() {
-		return field_height;
+		return this.field_height;
 	}
 
 	public void getFieldSize() {}
