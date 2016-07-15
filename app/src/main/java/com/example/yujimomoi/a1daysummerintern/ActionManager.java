@@ -44,7 +44,7 @@ public class ActionManager {
 				{
 					int amount = Integer.parseInt(act[2]);
 					boolean line = Boolean.parseBoolean(act[3]);
-					if(line) BaseObject.move(id, amount);
+					if(!line) BaseObject.move(id, amount);
 					else BaseObject.moveWithLine(id, amount);
 				}
 				break;

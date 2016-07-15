@@ -26,7 +26,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class ViewRendere extends SurfaceView implements SurfaceHolder.Callback{
 	private BaseObject obj[];
-	private int texture_name_list[] = {R.drawable._app_icon_dameo};
+	private int texture_name_list[] = {R.drawable.car_sample001};
 	private Bitmap texture_list[];
 	private static final long INTERVAL_PERIOD = 16;
 	private ScheduledExecutorService scheduledExecutorService;

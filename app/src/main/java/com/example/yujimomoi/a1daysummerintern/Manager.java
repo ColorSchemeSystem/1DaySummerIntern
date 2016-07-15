@@ -27,8 +27,7 @@ public class Manager extends Activity {
 		this.actionManager = new ActionManager();
 		this.player = new Player(this);
 		this.player.init();
-		this.player.point.x = 400;
-		this.player.point.y = 400;
+		this.player.setPoint(400, 400);
 		this.actionManager.init();
 
 //        this.actionManager.setData("test1");
@@ -53,14 +52,8 @@ public class Manager extends Activity {
 		// オブジェクトの動きの設定
 		this.actionManager.setActionWrite();
 
-		//this.player.turn(90);
 		this.player.move(100);
-		this.player.turn(45);
-		this.player.move(100);
-//		this.player.turn(45);
-//		this.player.move(100);
-//		this.player.turn(90);
-//		this.player.move(100);
+		this.player.turn(90);
 
 		// オブジェクトの動きの設定を終了
 		this.actionManager.setActionWriteEnd();

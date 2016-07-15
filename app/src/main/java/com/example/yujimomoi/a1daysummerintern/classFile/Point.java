@@ -17,6 +17,11 @@ public class Point {
 		this.y = y;
 	}
 
+	Point(Point point) {
+		this.x = point.x;
+		this.y = point.y;
+	}
+
 	public void SetPoint(double x,double y) {
 		this.x = x;
 		this.y = y;
