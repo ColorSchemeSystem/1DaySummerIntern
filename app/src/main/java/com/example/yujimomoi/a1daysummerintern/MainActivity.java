@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
 	private Runnable updateText;
 	private TimerTask timerTask;
 
-	private long FPS = 1 / 1000;
+	private long FPS = 60 / 1000;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

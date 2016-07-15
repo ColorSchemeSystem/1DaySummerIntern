@@ -48,6 +48,7 @@ public class Player extends BaseObject {
 	public void draw(Canvas canvas) {
 		if(this.texture != null) {
 			canvas.drawBitmap(this.texture, (float)this.point.x, (float)this.point.y, new Paint());
+			//Log.d("point", "x = " + this.point.x + ", y = " + this.point.y);
 		} else {
 		}
 	}
@@ -68,9 +69,9 @@ public class Player extends BaseObject {
 //		this.point.x += Math.sin(this.rotation) * amountOfMove;
 //		this.point.y += -Math.cos(this.rotation) * amountOfMove;
 		if(ActionManager.getWriteAction()) {
-			this.manager.setData(this.id + " move " + String.valueOf(amountOfMove) + " false");
-			for(int i = 0;i < amountOfMove;i++) {
-				this.manager.setData(this.id + " move 1 false");
+			//this.manager.setData(this.id + " move " + String.valueOf(amountOfMove) + " false");
+			for(int i = 0;i < amountOfMove/5;i++) {
+				this.manager.setData(this.id + " move 5 false");
 			}
 		} else {
 			this.point = Calcu.calcuPoint(this.point, this.rotation, amountOfMove);
