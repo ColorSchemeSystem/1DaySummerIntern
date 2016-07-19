@@ -15,10 +15,10 @@ import com.example.yujimomoi.a1daysummerintern.R;
  */
 public class Player extends BaseObject {
 	private static final int MOVE_MAX = 10;
-	private static final int TURN_MAX = 10;
+	private static final float TURN_MAX = 10.0f;
 	private Point point;
 	private Point old_point;
-	private int rotation;
+	private float rotation;
 	private int texture_type;
 	private int texture_color;
 	private Bitmap texture;
@@ -93,7 +93,7 @@ public class Player extends BaseObject {
 		this.matrix.postRotate(this.rotation);
 	}
 
-	public int getRotation() {
+	public float getRotation() {
 		return this.rotation;
 	}
 
@@ -130,21 +130,24 @@ public class Player extends BaseObject {
 				amountOfMove -= MOVE_MAX;
 			}
 		} else {
-			this.point = Calcu.calcuPoint(this.point, 90 - this.rotation, amountOfMove);
+			this.point = Calcu.calcuPoint(this.point, 90.0f - this.rotation, amountOfMove);
 			this.matrix.postTranslate((float)(this.point.x - this.old_point.x), (float)(this.point.y - this.old_point.y));
 			this.manager.setLineData(new Paint(this.line),this.getPoint(),this.getOldPoint());
 		}
 	}
 
-	public void turn(int degree) {
+	public void turn(float degree) {
 		if(ActionManager.getWriteAction()) {
-			while(degree > 0) {
-				if(degree >= TURN_MAX) {
-					this.manager.setData(this.id + " turn " + TURN_MAX);
+			float absDegree = Math.abs(degree);
+			while(absDegree > 0) {
+				if(absDegree >= TURN_MAX) {
+					if(degree < 0) {this.manager.setData(this.id + " turn " + -TURN_MAX);}
+					else this.manager.setData(this.id + " turn " + TURN_MAX);
 				} else {
-					this.manager.setData(this.id + " turn " + degree);
+					if(degree < 0) this.manager.setData(this.id + " turn " + -absDegree);
+					else this.manager.setData(this.id + " turn " + absDegree);
 				}
-				degree -= TURN_MAX;
+				absDegree -= TURN_MAX;
 			}
 		} else {
 			this.rotation += degree;

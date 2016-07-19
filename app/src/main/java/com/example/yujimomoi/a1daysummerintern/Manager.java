@@ -38,29 +38,50 @@ public class Manager extends Activity {
 
 		this.player = new Player(this);
 		this.player.init();
-		this.player.setPoint(400, 400);
 
 		Player hoge = new Player(this);
 		hoge.init();
 
 		this.viewRendere.setObject(this.player);
-		//this.viewRendere.setObject(hoge);
+		this.viewRendere.setObject(hoge);
 
 		this.actionManager = new ActionManager();
 		this.actionManager.init();
+
+		this.player.setPoint(400, 0);
+		hoge.setPoint(400, 0);
 		// オブジェクトの動きの設定
 		this.actionManager.setActionWrite();
 
-		for(int i = 0;i < 360;i++) {
-			if(300 <= i) this.player.setLineColor(Color.RED);
-			else if(240 <= i) this.player.setLineColor(Color.GREEN);
-			else if(180 <= i) this.player.setLineColor(Color.BLACK);
-			else if(120 <= i) this.player.setLineColor(Color.YELLOW);
-			else if(60 <= i) this.player.setLineColor(Color.GRAY);
-			this.player.moveWithLine(2);
-			this.player.turn(1);
-		}
-		this.player.move(400);
+		this.player.setLineColor(Color.YELLOW);
+		this.player.turn(180);
+		this.player.turn(-18);
+		this.player.moveWithLine(300);
+		this.player.turn(-72);
+		this.player.moveWithLine(300);
+		this.player.turn(-234);
+		this.player.moveWithLine(300);
+		this.player.turn(-54);
+		this.player.moveWithLine(300);
+		this.player.turn(152);
+		this.player.moveWithLine(300);
+
+		this.player.move(600);
+
+		hoge.setLineColor(Color.YELLOW);
+		hoge.turn(180);
+		hoge.turn(18);
+		hoge.moveWithLine(300);
+		hoge.turn(72);
+		hoge.moveWithLine(300);
+		hoge.turn(234);
+		hoge.moveWithLine(300);
+		hoge.turn(54);
+		hoge.moveWithLine(300);
+		hoge.turn(-152);
+		hoge.moveWithLine(300);
+
+		hoge.move(600);
 
 		// オブジェクトの動きの設定を終了
 		this.actionManager.setActionWriteEnd();

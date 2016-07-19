@@ -69,7 +69,7 @@ public class ActionManager {
 					break;
 					case "turn":
 					{
-						int degree = Integer.parseInt(action[2]);
+						float degree = Float.parseFloat(action[2]);
 						Player player = (Player) BaseObject.getObj(i);
 						player.turn(degree);
 					}

@@ -8,7 +8,7 @@ public class Calcu {
 		return 0;
 	};
 
-	public static Point calcuPoint(Point nowPoint, int rotation, int amountOfMove) {
+	public static Point calcuPoint(Point nowPoint, float rotation, int amountOfMove) {
 		Double rad = rotation * Math.PI / 180;
 		nowPoint.x += Math.cos(rad) * amountOfMove;
 		nowPoint.y -= Math.sin(rad) * amountOfMove;
