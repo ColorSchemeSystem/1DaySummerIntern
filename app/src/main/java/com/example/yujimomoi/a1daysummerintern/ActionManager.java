@@ -3,6 +3,7 @@ package com.example.yujimomoi.a1daysummerintern;
 import android.util.Log;
 
 import com.example.yujimomoi.a1daysummerintern.classFile.BaseObject;
+import com.example.yujimomoi.a1daysummerintern.classFile.LogPrint;
 import com.example.yujimomoi.a1daysummerintern.classFile.StringData;
 
 import java.util.HashMap;
@@ -16,24 +17,22 @@ public class ActionManager {
 	private int actionAmount;
 	private int line;
 	private static boolean writeAction = false;
-	private static String line_status;
 	private StringData data_buff[];
 	private int data_buff_amount[];
 	private int data_buff_cnt[];
 	private Boolean action_flag;
 
 	public ActionManager() {
-		Log.d("create", "ActionManager");
+		LogPrint.getInstans().logWrite("create", "ActionManager", true);
 		this.save_buff = null;
 		this.actionAmount = 0;
 		this.line = 0;
 		this.action_flag = false;
 		writeAction = false;
-		this.line_status = "sleep";
 	}
 
 	public void init() {
-		Log.d("init", "ActionManager");
+		LogPrint.getInstans().logWrite("init", "ActionManager", true);
 		if(this.save_buff != null) this.save_buff.clear();
 		this.save_buff = new HashMap<String, String>();
 		writeAction = false;
@@ -41,13 +40,13 @@ public class ActionManager {
 		this.data_buff_amount = new int[BaseObject.max_id];
 		this.data_buff_cnt = new int[BaseObject.max_id];
 		for(int i = 0;i < BaseObject.max_id;i++) {
-			Log.d("data_buff","number : " + i);
+			LogPrint.getInstans().logWrite("data_buff","number : " + i);
 			this.data_buff[i] = new StringData();
-			Log.d("data_buff","number : " + i + " sucssece");
+			LogPrint.getInstans().logWrite("data_buff","number : " + i + " sucssece");
 			this.data_buff_amount[i] = 0;
 			this.data_buff_cnt[i] = 0;
 		}
-		Log.d("init_end", "ActionManager");
+		LogPrint.getInstans().logWrite("init_end", "ActionManager", true);
 	}
 
 	public void update() {
@@ -77,7 +76,7 @@ public class ActionManager {
 	}
 
 	public void setData(String value) {
-		//Log.d("setDate", value);
+		LogPrint.getInstans().logWrite("setDate", value);
 		this.save_buff.put(String.valueOf(this.actionAmount), value);
 		this.actionAmount ++;
 	}
@@ -88,7 +87,7 @@ public class ActionManager {
 			ans = this.save_buff.get(String.valueOf(this.line));
 			this.line ++;
 		}
-		//if(ans != null) Log.d("getDate", String.valueOf(ans));
+		if(ans != null) LogPrint.getInstans().logWrite("getDate", String.valueOf(ans));
 		return ans;
 	}
 

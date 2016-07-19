@@ -1,6 +1,5 @@
 package com.example.yujimomoi.a1daysummerintern.classFile;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
@@ -10,7 +9,6 @@ import android.graphics.Color;
 import com.example.yujimomoi.a1daysummerintern.ActionManager;
 import com.example.yujimomoi.a1daysummerintern.Manager;
 import com.example.yujimomoi.a1daysummerintern.R;
-import java.util.ArrayList;
 
 /**
  * Created by yuji.momoi on 2016/07/07.
@@ -29,7 +27,7 @@ public class Player extends BaseObject {
 
 	public Player(Manager manager) {
 		super(BaseObject.OBJ_TYPE_PLAYER);
-		Log.d("create", "Player");
+		LogPrint.getInstans().logWrite("create", "Player", true);
 		this.point = null;
 		this.rotation = 0;
 		this.texture_type = 0;
@@ -40,16 +38,16 @@ public class Player extends BaseObject {
 
 	@Override
 	public void init() {
-		Log.d("init", "Player");
+		LogPrint.getInstans().logWrite("init", "Player", true);
 		this.point = new Point();
 		this.old_point = new Point();
 		this.texture = Manager.getTexture(R.drawable.car_sample001);
 		this.matrix = new Matrix();
 		this.matrix.postScale(1.0f, 1.0f);
 		super.setObj(this);
-//		Log.d("Player","width : " + this.texture.getWidth());
-//		Log.d("Player","height : " + this.texture.getHeight());
-//		Log.d("init_end", "Player");
+		LogPrint.getInstans().logWrite("Player","width : " + this.texture.getWidth());
+		LogPrint.getInstans().logWrite("Player","height : " + this.texture.getHeight());
+		LogPrint.getInstans().logWrite("init_end", "Player", true);
 	}
 
 	@Override

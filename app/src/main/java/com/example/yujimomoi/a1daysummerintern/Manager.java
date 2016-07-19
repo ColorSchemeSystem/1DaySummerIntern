@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.util.Log;
 
 import com.example.yujimomoi.a1daysummerintern.classFile.FieldArea;
+import com.example.yujimomoi.a1daysummerintern.classFile.LogPrint;
 import com.example.yujimomoi.a1daysummerintern.classFile.Player;
 import com.example.yujimomoi.a1daysummerintern.classFile.Point;
 
@@ -20,7 +21,8 @@ public class Manager extends Activity {
 	private FieldArea fieldArea;
 
 	public Manager(ViewRendere viewRendere) {
-		Log.d("create", "Manager");
+		LogPrint.getInstans().setDrawFlag(false); // ログを書くか書かないか
+		LogPrint.getInstans().logWrite("create", "Manager", true);
 		this.viewRendere = viewRendere;
 		this.actionManager = null;
 		this.player = null;
@@ -28,7 +30,7 @@ public class Manager extends Activity {
 	}
 
 	public void init() {
-		Log.d("init", "Manager");
+		LogPrint.getInstans().logWrite("init", "Manager", true);
 		this.fieldArea = new FieldArea();
 		this.fieldArea.init();
 		this.viewRendere.setObject(this.fieldArea);
@@ -59,7 +61,7 @@ public class Manager extends Activity {
 
 		// オブジェクトの動きの設定を終了
 		this.actionManager.setActionWriteEnd();
-		Log.d("init_end", "Manager");
+		LogPrint.getInstans().logWrite("init_end", "Manager", true);
 	}
 
 	public void update() {
@@ -68,10 +70,10 @@ public class Manager extends Activity {
 	}
 
 	public static Bitmap getTexture(int id) {
-		Log.d("Manager", "getTexture");
+		LogPrint.getInstans().logWrite("Manager", "getTexture");
 		Bitmap texture = null;
 		if(viewRendere != null) texture = viewRendere.getTexture(id);
-		Log.d("Manager", "getTexture texture : " + String.valueOf(texture));
+		LogPrint.getInstans().logWrite("Manager", "getTexture texture : " + String.valueOf(texture));
 		return texture;
 	}
 

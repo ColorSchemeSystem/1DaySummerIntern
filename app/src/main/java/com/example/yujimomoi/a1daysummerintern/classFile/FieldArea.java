@@ -14,20 +14,20 @@ public class FieldArea extends BaseObject{
 
 	public FieldArea() {
 		super(BaseObject.OBJ_TYPE_FIELD);
-		Log.d("create", "FieldArea");
+		LogPrint.getInstans().logWrite("create", "FieldArea", true);
 		this.field_width = 0;
 		this.field_height = 0;
 		this.line_data = null;
 	}
 
 	public void init(int width,int height) {
-		Log.d("init", "FieldArea");
+		LogPrint.getInstans().logWrite("init", "FieldArea", true);
 		this.field_width = width;
 		this.field_height = height;
 	}
 
 	public void init() {
-		Log.d("init", "FieldArea");
+		LogPrint.getInstans().logWrite("init", "FieldArea", true);
 		this.line_data = new LineData();
 		super.setObj(this);
 	}

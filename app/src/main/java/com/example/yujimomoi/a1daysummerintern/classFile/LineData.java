@@ -19,6 +19,7 @@ public class LineData {
 	private int size;
 
 	public LineData() {
+		LogPrint.getInstans().logWrite("create", "LineData", true);
 		this.line_color = new HashMap<String, String>();
 		this.start_line = new ArrayList<Point>();
 		this.end_line = new ArrayList<Point>();
@@ -30,13 +31,12 @@ public class LineData {
 		this.start_line.add(startPoint);
 		this.end_line.add(endPoint);
 		this.size ++;
-		Log.d("LineData","setLineData sX : " + startPoint.x + " sY : " + startPoint.y);
-		Log.d("LineData","setLineData eX : " + endPoint.x + " eY : " + endPoint.y);
+		LogPrint.getInstans().logWrite("LineData","setLineData sX : " + startPoint.x + " sY : " + startPoint.y);
+		LogPrint.getInstans().logWrite("LineData","setLineData eX : " + endPoint.x + " eY : " + endPoint.y);
 	}
 
 	public void draw(Canvas canvas) {
 		canvas.save();
-		//Log.d("LineData","size : " + this.size);
 		if(this.start_line.size() == this.end_line.size()) {
 			int i = 0;
 			for (Point startPoint : this.start_line) {

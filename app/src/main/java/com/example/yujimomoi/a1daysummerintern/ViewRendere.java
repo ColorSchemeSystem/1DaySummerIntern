@@ -13,6 +13,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.example.yujimomoi.a1daysummerintern.classFile.BaseObject;
+import com.example.yujimomoi.a1daysummerintern.classFile.LogPrint;
 
 import java.util.ArrayList;
 import java.util.concurrent.Executors;
@@ -134,7 +135,7 @@ public class ViewRendere extends SurfaceView implements SurfaceHolder.Callback{
 			array[i] = this.obj[i];
 		}
 		array[array.length - 1] = object;
-		Log.d("ViewRendere", "set : " + String.valueOf(length));
+		LogPrint.getInstans().logWrite("ViewRendere", "set : " + String.valueOf(length));
 		this.obj = array;
 	}
 
