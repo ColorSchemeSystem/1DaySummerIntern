@@ -18,12 +18,13 @@ public class Player extends BaseObject {
 	private static final int TURN_MAX = 10;
 	private Point point;
 	private Point old_point;
-	public int rotation;
-	public int texture_type;
-	public int texture_color;
+	private int rotation;
+	private int texture_type;
+	private int texture_color;
 	private Bitmap texture;
 	private Manager manager;
 	private Matrix matrix;
+	private Paint line;
 
 	public Player(Manager manager) {
 		super(BaseObject.OBJ_TYPE_PLAYER);
@@ -33,6 +34,7 @@ public class Player extends BaseObject {
 		this.texture_type = 0;
 		this.texture_color = 0;
 		this.texture = null;
+		this.line = null;
 		this.manager = manager;
 	}
 
@@ -43,6 +45,9 @@ public class Player extends BaseObject {
 		this.old_point = new Point();
 		this.texture = Manager.getTexture(R.drawable.car_sample001);
 		this.matrix = new Matrix();
+		this.line = new Paint();
+		this.line.setStyle(Paint.Style.STROKE);
+		this.line.setStrokeWidth(20.f);
 		this.matrix.postScale(1.0f, 1.0f);
 		super.setObj(this);
 		LogPrint.getInstans().logWrite("Player","width : " + this.texture.getWidth());
@@ -127,7 +132,7 @@ public class Player extends BaseObject {
 		} else {
 			this.point = Calcu.calcuPoint(this.point, 90 - this.rotation, amountOfMove);
 			this.matrix.postTranslate((float)(this.point.x - this.old_point.x), (float)(this.point.y - this.old_point.y));
-			this.manager.setLineData(String.valueOf(Color.RED),this.getPoint(),this.getOldPoint());
+			this.manager.setLineData(new Paint(this.line),this.getPoint(),this.getOldPoint());
 		}
 	}
 
@@ -153,5 +158,21 @@ public class Player extends BaseObject {
 
 	public void setTexture(int textureId) {
 		this.texture = Manager.getTexture(textureId);
+	}
+
+	public void setLineColor(int color) {
+		if(ActionManager.getWriteAction()) {
+			this.manager.setData(this.id + " lineColor " + String.valueOf(color));
+		} else {
+			this.line.setColor(color);
+		}
+	}
+
+	public void setLineSize(float lineSize) {
+		if(ActionManager.getWriteAction()) {
+			this.manager.setData(this.id + " lineSize " + String.valueOf(lineSize));
+		} else {
+			this.line.setStrokeWidth(lineSize);
+		}
 	}
 }

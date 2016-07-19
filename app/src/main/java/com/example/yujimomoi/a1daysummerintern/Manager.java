@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.util.Log;
 
 import com.example.yujimomoi.a1daysummerintern.classFile.FieldArea;
@@ -50,14 +51,16 @@ public class Manager extends Activity {
 		// オブジェクトの動きの設定
 		this.actionManager.setActionWrite();
 
-		this.player.moveWithLine(200);
-		this.player.turn(90);
-		this.player.moveWithLine(200);
-		this.player.turn(90);
-		this.player.moveWithLine(200);
-		this.player.turn(90);
-		this.player.moveWithLine(200);
-
+		for(int i = 0;i < 360;i++) {
+			if(300 <= i) this.player.setLineColor(Color.RED);
+			else if(240 <= i) this.player.setLineColor(Color.GREEN);
+			else if(180 <= i) this.player.setLineColor(Color.BLACK);
+			else if(120 <= i) this.player.setLineColor(Color.YELLOW);
+			else if(60 <= i) this.player.setLineColor(Color.GRAY);
+			this.player.moveWithLine(2);
+			this.player.turn(1);
+		}
+		this.player.move(400);
 
 		// オブジェクトの動きの設定を終了
 		this.actionManager.setActionWriteEnd();
@@ -81,7 +84,7 @@ public class Manager extends Activity {
 		this.actionManager.setData(data);
 	}
 
-	public void setLineData(String color, Point startPoint, Point endPoint) {
+	public void setLineData(Paint color, Point startPoint, Point endPoint) {
 		this.fieldArea.setLineData(color, startPoint, endPoint);
 	}
 }

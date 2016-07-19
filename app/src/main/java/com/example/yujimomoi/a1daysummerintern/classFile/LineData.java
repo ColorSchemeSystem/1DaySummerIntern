@@ -1,33 +1,32 @@
 package com.example.yujimomoi.a1daysummerintern.classFile;
 
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
-import android.util.Log;
-
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by yuji.momoi on 2016/07/15.
  */
 public class LineData {
-	private Map<String, String > line_color;
+	private ArrayList<Paint> line_color;
 	private ArrayList<Point> start_line;
 	private ArrayList<Point> end_line;
 	private int size;
 
 	public LineData() {
 		LogPrint.getInstans().logWrite("create", "LineData", true);
-		this.line_color = new HashMap<String, String>();
+		this.line_color = new ArrayList<Paint>();
 		this.start_line = new ArrayList<Point>();
 		this.end_line = new ArrayList<Point>();
 		this.size = 0;
 	}
 
-	public void setLineData(String color, Point startPoint, Point endPoint) {
-		this.line_color.put(String.valueOf(this.size), color);
+	public void setLineData(Paint color, Point startPoint, Point endPoint) {
+		Paint line = new Paint();
+		line.setColor(color.getColor());
+		line.setStrokeWidth(color.getStrokeWidth());
+		LogPrint.getInstans().logWrite("setLineData", "color : " + color.getColor());
+		this.line_color.add(line);
 		this.start_line.add(startPoint);
 		this.end_line.add(endPoint);
 		this.size ++;
@@ -41,7 +40,9 @@ public class LineData {
 			int i = 0;
 			for (Point startPoint : this.start_line) {
 				Point endPoint = this.end_line.get(i);
-				canvas.drawLine((float)startPoint.x, (float)startPoint.y, (float)endPoint.x, (float)endPoint.y, new Paint());
+				canvas.drawLine((float)startPoint.x, (float)startPoint.y, (float)endPoint.x, (float)endPoint.y, this.line_color.get(i));
+				//Paint paint = this.line_color.get(i);
+				//canvas.drawRect((float)startPoint.x - paint.getTextScaleX() / 2.0f, (float)startPoint.y - paint.getTextScaleX() / 2.0f, (float)endPoint.x + paint.getTextScaleX() / 2.0f, (float)endPoint.y + paint.getTextScaleX() / 2.0f, this.line_color.get(i));
 				i++;
 			}
 		}

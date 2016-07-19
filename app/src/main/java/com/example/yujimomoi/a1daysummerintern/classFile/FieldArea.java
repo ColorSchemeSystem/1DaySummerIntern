@@ -2,6 +2,7 @@ package com.example.yujimomoi.a1daysummerintern.classFile;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.util.Log;
 
 /**
@@ -51,7 +52,7 @@ public class FieldArea extends BaseObject{
 		this.line_data.draw(canvas);
 	}
 
-	public void setLineData(String lineColor, Point startPoint, Point endPoint) {
+	public void setLineData(Paint lineColor, Point startPoint, Point endPoint) {
 		this.line_data.setLineData(lineColor,startPoint, endPoint);
 	}
 }

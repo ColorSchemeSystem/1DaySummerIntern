@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.example.yujimomoi.a1daysummerintern.classFile.BaseObject;
 import com.example.yujimomoi.a1daysummerintern.classFile.LogPrint;
+import com.example.yujimomoi.a1daysummerintern.classFile.Player;
 import com.example.yujimomoi.a1daysummerintern.classFile.StringData;
 
 import java.util.HashMap;
@@ -61,15 +62,25 @@ public class ActionManager {
 					{
 						int amount = Integer.parseInt(action[2]);
 						boolean line = Boolean.parseBoolean(action[3]);
-						if(!line) BaseObject.move(i, amount);
-						else BaseObject.moveWithLine(i, amount);
+						Player player = (Player) BaseObject.getObj(i);
+						if(!line) player.move(amount);
+						else player.moveWithLine(amount);
 					}
 					break;
 					case "turn":
 					{
 						int degree = Integer.parseInt(action[2]);
-						BaseObject.turn(i, degree);
+						Player player = (Player) BaseObject.getObj(i);
+						player.turn(degree);
 					}
+					break;
+					case "lineColor":
+					{
+						int color = Integer.parseInt(action[2]);
+						Player player = (Player) BaseObject.getObj(i);
+						player.setLineColor(color);
+					}
+					break;
 				}
 			}
 		}

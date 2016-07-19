@@ -24,52 +24,9 @@ public class BaseObject {
 	protected void setObj(BaseObject obj) {
 		objList.add(obj);
 	}
+	public static BaseObject getObj(int index) {return objList.get(index);}
 
 	public void init(){}
 	public void update(){}
 	public void draw(Canvas canvas){}
-
-	public static void move(int targetId, int amountOfMove) {
-		if(targetId >= max_id) return;
-		BaseObject target = null;
-		for (BaseObject o : objList) {
-			if(o.id == targetId) {
-				target = o;
-				break;
-			}
-		}
-		if(target == null) return;
-		switch (target.obj_type) {
-			case OBJ_TYPE_PLAYER:
-			{
-				Player player = (Player) target;
-				player.move(amountOfMove);
-			}
-			break;
-		}
-	}
-	public static void moveWithLine(int targetId, int amountOfMove) {
-		if(targetId >= max_id) return;
-		BaseObject target = objList.get(targetId);
-		switch (target.obj_type) {
-			case OBJ_TYPE_PLAYER:
-			{
-				Player player = (Player) target;
-				player.moveWithLine(amountOfMove);
-			}
-			break;
-		}
-	}
-	public static void turn(int targetId, int degree) {
-		if(targetId >= max_id) return;
-		BaseObject target = objList.get(targetId);
-		switch (target.obj_type) {
-			case OBJ_TYPE_PLAYER:
-			{
-				Player player = (Player) target;
-				player.turn(degree);
-			}
-			break;
-		}
-	}
 }
