@@ -38,7 +38,7 @@ public class Manager extends Activity {
 		hoge.init();
 
 		this.viewRendere.setObject(this.player);
-		this.viewRendere.setObject(hoge);
+		//this.viewRendere.setObject(hoge);
 		Log.d("init_end", "Manager");
 
 		this.actionManager = new ActionManager();
@@ -46,6 +46,7 @@ public class Manager extends Activity {
 		// オブジェクトの動きの設定
 		this.actionManager.setActionWrite();
 
+		this.player.move(100);
 		this.player.turn(90);
 		this.player.move(100);
 
