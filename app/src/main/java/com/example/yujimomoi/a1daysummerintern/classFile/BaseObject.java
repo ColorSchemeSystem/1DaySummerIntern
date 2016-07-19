@@ -9,6 +9,7 @@ import java.util.ArrayList;
  */
 public class BaseObject {
 	protected static final int OBJ_TYPE_PLAYER = 0;
+	protected static final int OBJ_TYPE_FIELD = 1;
 	private static ArrayList<BaseObject> objList = new ArrayList<BaseObject>();
 	public static int max_id = 0;
 	protected int id;
@@ -69,30 +70,6 @@ public class BaseObject {
 				player.turn(degree);
 			}
 			break;
-		}
-	}
-
-	public static void startDrawLine(int targetId){
-		if(targetId >= max_id) return;
-		BaseObject target = objList.get(targetId);
-		switch (target.obj_type){
-			case OBJ_TYPE_PLAYER:
-			{
-				Player player = (Player) target;
-				player.startDrawLine(player.getPoint());
-			}
-		}
-	}
-
-	public static void finishDrawLine(int targetId){
-		if(targetId >= max_id) return;
-		BaseObject target = objList.get(targetId);
-		switch (target.obj_type){
-			case OBJ_TYPE_PLAYER:
-			{
-				Player player = (Player) target;
-				player.finishDrawLine();
-			}
 		}
 	}
 }

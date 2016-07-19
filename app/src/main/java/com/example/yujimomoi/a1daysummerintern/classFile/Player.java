@@ -26,15 +26,6 @@ public class Player extends BaseObject {
 	private Bitmap texture;
 	private Manager manager;
 	private Matrix matrix;
-	private String status;
-	private Paint paint;
-	private ArrayList<Point> start_points;
-	private ArrayList<Point> end_points;
-	private float start_line_x;
-	private float start_line_y;
-	private float end_line_x;
-	private float end_line_y;
-	private String line_status;
 
 	public Player(Manager manager) {
 		super(BaseObject.OBJ_TYPE_PLAYER);
@@ -45,11 +36,6 @@ public class Player extends BaseObject {
 		this.texture_color = 0;
 		this.texture = null;
 		this.manager = manager;
-		this.start_line_x = 0;
-		this.start_line_y = 0;
-		this.end_line_x = 0;
-		this.end_line_y = 0;
-		this.line_status = "sleep";
 	}
 
 	@Override
@@ -59,12 +45,8 @@ public class Player extends BaseObject {
 		this.old_point = new Point();
 		this.texture = Manager.getTexture(R.drawable.car_sample001);
 		this.matrix = new Matrix();
-		this.status = "";
 		this.matrix.postScale(1.0f, 1.0f);
 		super.setObj(this);
-		this.paint = new Paint();
-		this.start_points = new ArrayList <Point>();
-		this.end_points = new ArrayList <Point>();
 //		Log.d("Player","width : " + this.texture.getWidth());
 //		Log.d("Player","height : " + this.texture.getHeight());
 //		Log.d("init_end", "Player");
@@ -72,73 +54,26 @@ public class Player extends BaseObject {
 
 	@Override
 	public void update() {
-//		Log.d("Player","posX" + point.x);
-//		Log.d("Player","posY" + point.y);
 	};
 
 	@Override
 	public void draw(Canvas canvas) {
 		if(this.texture != null) {
 			canvas.save();
-			switch (this.status){
-				case "move":
-				{
-					Log.d("draw", "MOVE");
-					Bitmap bitmap = Bitmap.createScaledBitmap(this.texture, 60, 100, false);
-					if(this.start_points.size() == this.end_points.size()) {
-						int i = 0;
-						for (Point startPoint : this.start_points) {
-							Point endPoint = this.end_points.get(i);
-							canvas.drawLine((float)startPoint.x, (float)startPoint.y, (float)endPoint.x, (float)endPoint.y, paint);
-							i++;
-						}
-					}
-					canvas.drawBitmap(this.texture, this.matrix, new Paint());
-				}
-				break;
-
-				case "line":
-				{
-					paint.setColor(Color.rgb(0, 0, 0));
-					Log.d("draw", "Ox = " + this.old_point.x + ", Oy = " + this.old_point.y + ", x = " + this.point.x + ", y = " + this.point.y);
-					Bitmap bitmap = Bitmap.createScaledBitmap(this.texture, 60, 100, false);
-					if(this.start_points.size() == this.end_points.size()) {
-						int i = 0;
-						for (Point startPoint : this.start_points) {
-							Point endPoint = this.end_points.get(i);
-							canvas.drawLine((float)startPoint.x, (float)startPoint.y, (float)endPoint.x, (float)endPoint.y, paint);
-							i++;
-						}
-					}
-					canvas.drawLine(this.start_line_x, this.start_line_y, this.end_line_x, this.end_line_y, paint);
-					canvas.drawBitmap(this.texture, this.matrix, new Paint());
-				}
-				break;
-
-				case "turn":
-				{
-					Log.d("draw", "TURN");
-					Bitmap bitmap = Bitmap.createScaledBitmap(this.texture, 60, 100, false);
-					if(this.start_points.size() == this.end_points.size()) {
-						int i = 0;
-						for (Point startPoint : this.start_points) {
-							Point endPoint = this.end_points.get(i);
-							canvas.drawLine((float)startPoint.x, (float)startPoint.y, (float)endPoint.x, (float)endPoint.y, paint);
-							i++;
-						}
-					}
-					canvas.drawBitmap(this.texture, this.matrix, new Paint());
-				}
-				break;
-			}
+			canvas.drawBitmap(this.texture, this.matrix, new Paint());
 			canvas.restore();
-			//Log.d("point", "x = " + this.point.x + ", y = " + this.point.y);
 		} else {
 		}
 	}
 
 	public Point getPoint() {
-		return this.point;
+		Point point = new Point(this.point.x + this.texture.getWidth() / 2.0f, this.point.y + this.texture.getHeight() / 2.0f);
+		return point;
+	}
+
+	public Point getOldPoint() {
+		Point point = new Point(this.old_point.x + this.texture.getWidth() / 2.0f, this.old_point.y + this.texture.getHeight() / 2.0f);
+		return point;
 	}
 
 	public void setPoint(double pointX, double pointY) {
@@ -177,7 +112,6 @@ public class Player extends BaseObject {
 		} else {
 			this.point = Calcu.calcuPoint(this.point, 90 - this.rotation, amountOfMove);
 			this.matrix.postTranslate((float)(this.point.x - this.old_point.x), (float)(this.point.y - this.old_point.y));
-			this.status = "move";
 		}
 	}
 
@@ -195,13 +129,7 @@ public class Player extends BaseObject {
 		} else {
 			this.point = Calcu.calcuPoint(this.point, 90 - this.rotation, amountOfMove);
 			this.matrix.postTranslate((float)(this.point.x - this.old_point.x), (float)(this.point.y - this.old_point.y));
-			this.status = "line";
-			if(line_status.equals("run")){
-				this.end_line_x = (float)this.point.x + this.texture.getWidth() / 2;
-				this.end_line_y = (float)this.point.y + this.texture.getHeight() / 2;
-			}
-//			this.points.add(this.point.x);
-//			this.points.add(this.point.y);
+			this.manager.setLineData(String.valueOf(Color.RED),this.getPoint(),this.getOldPoint());
 		}
 	}
 
@@ -222,25 +150,7 @@ public class Player extends BaseObject {
 			this.matrix.postTranslate(-(float)this.point.x - (this.texture.getWidth() / 2.0f), -(float)this.point.y - (this.texture.getHeight() / 2.0f));
 			this.matrix.postRotate(degree);
 			this.matrix.postTranslate((float)this.point.x + (this.texture.getWidth() / 2.0f), (float)this.point.y + (this.texture.getHeight() / 2.0f));
-			this.status = "turn";
 		}
-	}
-
-	public void startDrawLine(Point point){
-		this.start_line_x = (float)this.point.x  + this.texture.getWidth() / 2;
-		this.start_line_y = (float)this.point.y  + this.texture.getHeight() / 2;
-		this.line_status = "run";
-//		this.points.add(point.x);
-//		this.points.add(point.y);
-	}
-
-	public void finishDrawLine(){
-		this.line_status = "sleep";
-		Point startPoint = new Point(this.start_line_x, this.start_line_y);
-		Point endPoint = new Point(this.end_line_x, this.end_line_y);
-		this.start_points.add(startPoint);
-		this.end_points.add(endPoint);
-//		this.points.add(-10000.0);
 	}
 
 	public void setTexture(int textureId) {

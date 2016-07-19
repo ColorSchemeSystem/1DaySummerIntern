@@ -62,28 +62,12 @@ public class ActionManager {
 					{
 						int amount = Integer.parseInt(action[2]);
 						boolean line = Boolean.parseBoolean(action[3]);
-						if(!line) {
-							if (this.line_status.equals("run")){
-								BaseObject.finishDrawLine(i);
-								this.line_status = "sleep";
-							}
-							BaseObject.move(i, amount);
-						}
-						else {
-							if (this.line_status.equals("sleep")){
-								BaseObject.startDrawLine(i);
-								this.line_status = "run";
-							}
-							BaseObject.moveWithLine(i, amount);
-						}
+						if(!line) BaseObject.move(i, amount);
+						else BaseObject.moveWithLine(i, amount);
 					}
 					break;
 					case "turn":
 					{
-						if (this.line_status.equals("run")){
-							BaseObject.finishDrawLine(i);
-							this.line_status = "sleep";
-						}
 						int degree = Integer.parseInt(action[2]);
 						BaseObject.turn(i, degree);
 					}

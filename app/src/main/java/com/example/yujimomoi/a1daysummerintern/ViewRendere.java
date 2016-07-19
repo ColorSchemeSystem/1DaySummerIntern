@@ -27,7 +27,7 @@ public class ViewRendere extends SurfaceView implements SurfaceHolder.Callback{
 	private BaseObject obj[];
 	private int texture_name_list[] = {R.drawable.car_sample001};
 	private Bitmap texture_list[];
-	private static final long INTERVAL_PERIOD = 16;
+	private static final long INTERVAL_PERIOD = 1;
 	private ScheduledExecutorService scheduledExecutorService;
 	private static final float FONT_SIZE = 48f;
 	private Paint paintFps;
@@ -67,7 +67,7 @@ public class ViewRendere extends SurfaceView implements SurfaceHolder.Callback{
 		paintFps = new Paint();
 		paintFps.setTypeface(Typeface.DEFAULT);
 		paintFps.setTextSize(FONT_SIZE);
-		paintFps.setColor(Color.BLACK);
+		paintFps.setColor(Color.RED);
 		paintFps.setAntiAlias(true);
 	}
 

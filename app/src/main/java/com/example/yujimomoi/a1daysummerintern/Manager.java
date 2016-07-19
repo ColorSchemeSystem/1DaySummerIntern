@@ -3,15 +3,12 @@ package com.example.yujimomoi.a1daysummerintern;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.util.Log;
 
+import com.example.yujimomoi.a1daysummerintern.classFile.FieldArea;
 import com.example.yujimomoi.a1daysummerintern.classFile.Player;
-
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import com.example.yujimomoi.a1daysummerintern.classFile.Point;
 
 /**
  * Created by yuji.momoi on 2016/07/07.
@@ -20,16 +17,22 @@ public class Manager extends Activity {
 	private Player player;
 	private ActionManager actionManager;
 	private static ViewRendere viewRendere;
+	private FieldArea fieldArea;
 
 	public Manager(ViewRendere viewRendere) {
 		Log.d("create", "Manager");
 		this.viewRendere = viewRendere;
 		this.actionManager = null;
 		this.player = null;
+		this.fieldArea = null;
 	}
 
 	public void init() {
 		Log.d("init", "Manager");
+		this.fieldArea = new FieldArea();
+		this.fieldArea.init();
+		this.viewRendere.setObject(this.fieldArea);
+
 		this.player = new Player(this);
 		this.player.init();
 		this.player.setPoint(400, 400);
@@ -74,5 +77,9 @@ public class Manager extends Activity {
 
 	public void setData(String data) {
 		this.actionManager.setData(data);
+	}
+
+	public void setLineData(String color, Point startPoint, Point endPoint) {
+		this.fieldArea.setLineData(color, startPoint, endPoint);
 	}
 }
