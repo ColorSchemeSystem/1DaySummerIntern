@@ -68,6 +68,7 @@ public class Manager extends Activity {
 	}
 
 	public void update() {
+		//LogPrint.getInstans().logWrite("update","Manager",true);
 		this.actionManager.update();
 		this.player.update();
 	}

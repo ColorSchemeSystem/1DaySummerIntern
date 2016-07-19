@@ -1,21 +1,33 @@
 package com.example.yujimomoi.a1daysummerintern;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.os.Handler;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity implements Runnable {
+	private Handler handler;
+	private Manager manager = null;
+	private ViewRendere viewRendere;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		handler = new Handler();
 		//setContentView(R.layout.activity_main);
 
-		ViewRendere viewRendere = new ViewRendere(this);
+		viewRendere = new ViewRendere(this);
 
-		final Manager manager = new Manager(viewRendere);
-		manager.init();
+		this.manager = new Manager(viewRendere);
+		this.manager.init();
 		viewRendere.setManager(manager);
 
 		setContentView(viewRendere);
+		handler.postDelayed(this, 60 / 1000);
+	}
+
+	@Override
+	public void run() {
+		if(this.manager != null) manager.update();
+		handler.postDelayed(this, 60 / 1000);
 	}
 }
