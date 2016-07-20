@@ -34,7 +34,6 @@ public class ViewRendere extends View {
 	private static final float FONT_SIZE = 48f;
 	private Paint paintFps;
 	private ArrayList<Long> intervalTime = new ArrayList<Long>(20);
-	private Manager manager = null;
 
 	public ViewRendere(Context context) {
 		super(context);
@@ -74,10 +73,10 @@ public class ViewRendere extends View {
 	// 描画
 	@Override
 	public void onDraw(Canvas canvas) {
-		canvas.drawColor(Color.WHITE);
+		//canvas.drawColor(Color.WHITE);
 		// fps（実測値）の計測
 		intervalTime.add(System.currentTimeMillis());
-		float fps = 20000 / (intervalTime.get(19) - intervalTime.get(3));
+		float fps = 20000 / (intervalTime.get(19) - intervalTime.get(0));
 		intervalTime.remove(0);
 
 		if(this.obj != null) {
@@ -106,9 +105,5 @@ public class ViewRendere extends View {
 		Log.d("ViewRendere", "setObject");
 
 		obj.add(object);
-	}
-
-	public void setManager(Manager manager) {
-		this.manager = manager;
 	}
 }

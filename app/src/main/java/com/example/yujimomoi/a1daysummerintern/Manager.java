@@ -49,13 +49,13 @@ public class Manager extends Activity {
 		this.actionManager = new ActionManager();
 		this.actionManager.init();
 
-		this.player.setPoint(400, 200);
-		hoge.setPoint(400, 0);
+		this.player.setPoint(400, 400);
+		hoge.setPoint(400, 400);
 		hoge.setTexture(R.drawable.car_sample002);
 		// オブジェクトの動きの設定
 		this.actionManager.setActionWrite();
 
-		this.player.setLineColor(Color.YELLOW);
+//		this.player.setLineColor(Color.YELLOW);
 //		this.player.turn(180);
 //		this.player.turn(-18);
 //		this.player.moveWithLine(300);
@@ -87,9 +87,50 @@ public class Manager extends Activity {
 
 		//drawPolyhedron(this.player, 6, 300);
 		//drawStar(this.player, 500);
+		this.player.setLineColor(Color.YELLOW);
+		drawCircle(this.player, 200);
+		this.player.setLineColor(Color.BLUE);
+		drawCircle(this.player, 180);
+		this.player.setLineColor(Color.YELLOW);
+		drawCircle(this.player, 160);
+		this.player.setLineColor(Color.BLUE);
+		drawCircle(this.player, 140);
+		this.player.setLineColor(Color.YELLOW);
+		drawCircle(this.player, 120);
+		this.player.setLineColor(Color.BLUE);
 		drawCircle(this.player, 100);
+		this.player.setLineColor(Color.YELLOW);
+		drawCircle(this.player, 80);
+		this.player.setLineColor(Color.BLUE);
+		drawCircle(this.player, 60);
+		this.player.setLineColor(Color.YELLOW);
+		drawCircle(this.player, 40);
+		this.player.setLineColor(Color.BLUE);
+		drawCircle(this.player, 20);
 		//this.player.move(new Point(300,500));
 
+		this.player.move(-300);
+
+		hoge.setLineColor(Color.YELLOW);
+		drawCircle(hoge, 400);
+		hoge.setLineColor(Color.BLUE);
+		drawCircle(hoge, 380);
+		hoge.setLineColor(Color.YELLOW);
+		drawCircle(hoge, 360);
+		hoge.setLineColor(Color.BLUE);
+		drawCircle(hoge, 340);
+		hoge.setLineColor(Color.YELLOW);
+		drawCircle(hoge, 320);
+		hoge.setLineColor(Color.BLUE);
+		drawCircle(hoge, 300);
+		hoge.setLineColor(Color.YELLOW);
+		drawCircle(hoge, 280);
+		hoge.setLineColor(Color.BLUE);
+		drawCircle(hoge, 260);
+		hoge.setLineColor(Color.YELLOW);
+		drawCircle(hoge, 240);
+		hoge.setLineColor(Color.BLUE);
+		drawCircle(hoge, 220);
 
 		// オブジェクトの動きの設定を終了
 		this.actionManager.setActionWriteEnd();
@@ -97,7 +138,6 @@ public class Manager extends Activity {
 	}
 
 	public void update() {
-		//LogPrint.getInstans().logWrite("update","Manager",true);
 		this.actionManager.update();
 		this.player.update();
 	}
@@ -138,10 +178,14 @@ public class Manager extends Activity {
 		float rot = target.getRotation();
 		Point point = target.getPoint();
 		target.move(radius);
+		target.turn(90);
+		float amount = (radius * 2) * (float) Math.PI;
 		for(int i = 0;i < 360;i++) {
-
+			target.turn(1);
+			target.moveWithLine(amount / 360);
 		}
-		target.turn(target.getRotation() - 180);
+		target.turn(90);
 		target.move(radius);
+		target.turn(180);
 	}
 }

@@ -1,51 +1,49 @@
 package com.example.yujimomoi.a1daysummerintern.classFile;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
+
 import java.util.ArrayList;
 
 /**
  * Created by yuji.momoi on 2016/07/15.
  */
 public class LineData {
-	private ArrayList<Paint> line_color;
-	private ArrayList<Point> start_line;
-	private ArrayList<Point> end_line;
+	private Paint line_color;
+	private float[] line_path;
 	private int size;
 
 	public LineData() {
 		LogPrint.getInstans().logWrite("create", "LineData", true);
-		this.line_color = new ArrayList<Paint>();
-		this.start_line = new ArrayList<Point>();
-		this.end_line = new ArrayList<Point>();
+		this.line_color = new Paint();
+		this.line_path = new float[4];
+		for (int i = 0; i < 4;i++) {
+			this.line_path[i] = 0.0f;
+		}
 		this.size = 0;
 	}
 
 	public void setLineData(Paint color, Point startPoint, Point endPoint) {
-		Paint line = new Paint();
-		line.setColor(color.getColor());
-		line.setStrokeWidth(color.getStrokeWidth());
 		LogPrint.getInstans().logWrite("setLineData", "color : " + color.getColor());
-		this.line_color.add(line);
-		this.start_line.add(startPoint);
-		this.end_line.add(endPoint);
+		this.line_color = color;
+		float[] copy = new float[(this.size + 1) * 4];
+		System.arraycopy(this.line_path, 0, copy, 0, this.line_path.length);
+		copy[this.size * 4 + 0] = (float) startPoint.x;
+		copy[this.size * 4 + 1] = (float) startPoint.y;
+		copy[this.size * 4 + 2] = (float) endPoint.x;
+		copy[this.size * 4 + 3] = (float) endPoint.y;
+		int n = this.size;
 		this.size ++;
+		this.line_path = new float[this.size * 4];
+		System.arraycopy(copy, 0 , this.line_path, 0, copy.length);
 		LogPrint.getInstans().logWrite("LineData","setLineData sX : " + startPoint.x + " sY : " + startPoint.y);
 		LogPrint.getInstans().logWrite("LineData","setLineData eX : " + endPoint.x + " eY : " + endPoint.y);
 	}
 
 	public void draw(Canvas canvas) {
 		canvas.save();
-		if(this.start_line.size() == this.end_line.size()) {
-			int i = 0;
-			for (Point startPoint : this.start_line) {
-				Point endPoint = this.end_line.get(i);
-				canvas.drawLine((float)startPoint.x, (float)startPoint.y, (float)endPoint.x, (float)endPoint.y, this.line_color.get(i));
-				//Paint paint = this.line_color.get(i);
-				//canvas.drawRect((float)startPoint.x - paint.getTextScaleX() / 2.0f, (float)startPoint.y - paint.getTextScaleX() / 2.0f, (float)endPoint.x + paint.getTextScaleX() / 2.0f, (float)endPoint.y + paint.getTextScaleX() / 2.0f, this.line_color.get(i));
-				i++;
-			}
-		}
+		canvas.drawLines(this.line_path, this.line_color);
 		canvas.restore();
 	}
 }
