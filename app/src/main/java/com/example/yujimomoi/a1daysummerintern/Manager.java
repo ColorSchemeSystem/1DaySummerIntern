@@ -51,6 +51,7 @@ public class Manager extends Activity {
 
 		this.player.setPoint(400, 200);
 		hoge.setPoint(400, 0);
+		hoge.setTexture(R.drawable.car_sample002);
 		// オブジェクトの動きの設定
 		this.actionManager.setActionWrite();
 

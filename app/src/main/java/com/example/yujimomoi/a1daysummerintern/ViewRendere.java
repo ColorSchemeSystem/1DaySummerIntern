@@ -29,10 +29,8 @@ import java.util.concurrent.TimeUnit;
  */
 public class ViewRendere extends View {
 	private ArrayList<BaseObject> obj;
-	private int texture_name_list[] = {R.drawable.car_sample001};
+	private int texture_name_list[] = {R.drawable.car_sample001, R.drawable.car_sample002};
 	private Bitmap texture_list[];
-	private static final long INTERVAL_PERIOD = 1;
-	private ScheduledExecutorService scheduledExecutorService;
 	private static final float FONT_SIZE = 48f;
 	private Paint paintFps;
 	private ArrayList<Long> intervalTime = new ArrayList<Long>(20);

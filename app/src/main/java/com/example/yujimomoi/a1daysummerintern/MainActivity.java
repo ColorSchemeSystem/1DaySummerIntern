@@ -27,7 +27,6 @@ public class MainActivity extends Activity implements Runnable {
 
 		this.manager = new Manager(viewRendere);
 		this.manager.init();
-		viewRendere.setManager(manager);
 
 		setContentView(viewRendere);
 		handler.postDelayed(this, 60 / 1000);
