@@ -4,8 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.util.Log;
-import android.graphics.Color;
+import android.support.v4.util.LogWriter;
 import com.example.yujimomoi.a1daysummerintern.ActionManager;
 import com.example.yujimomoi.a1daysummerintern.Manager;
 import com.example.yujimomoi.a1daysummerintern.R;
@@ -14,7 +13,7 @@ import com.example.yujimomoi.a1daysummerintern.R;
  * Created by yuji.momoi on 2016/07/07.
  */
 public class Player extends BaseObject {
-	private static final int MOVE_MAX = 10;
+	private static final float MOVE_MAX = 10.0f;
 	private static final float TURN_MAX = 10.0f;
 	private Point point;
 	private Point old_point;
@@ -57,6 +56,8 @@ public class Player extends BaseObject {
 
 	@Override
 	public void update() {
+//		Log.d("move","x : " + this.point.x);
+//		Log.d("move","y : " + this.point.y);
 	};
 
 	@Override
@@ -101,38 +102,64 @@ public class Player extends BaseObject {
 
 	public static void changeAllTexColor() {}
 
-	public void move(int amountOfMove) {
-		this.old_point = new Point(this.point);
+	public void move(float amountOfMove) {
 		if(ActionManager.getWriteAction()) {
-			while(amountOfMove > 0) {
-				if(amountOfMove >= MOVE_MAX) {
-					this.manager.setData(this.id + " move " + MOVE_MAX + " false");
+			float amount = Math.abs(amountOfMove);
+			while(amount > 0) {
+				if(amount >= MOVE_MAX) {
+					if(amountOfMove < 0) this.manager.setData(this.id + " move " + (-MOVE_MAX) + " false");
+					else this.manager.setData(this.id + " move " + MOVE_MAX + " false");
 				} else {
-					this.manager.setData(this.id + " move " + amountOfMove + " false");
+					if(amountOfMove < 0) this.manager.setData(this.id + " move " + (-amount) + " false");
+					else this.manager.setData(this.id + " move " + amount + " false");
 				}
-				amountOfMove -= MOVE_MAX;
+				amount -= MOVE_MAX;
 			}
 		} else {
+			this.old_point = new Point(this.point);
 			this.point = Calcu.calcuPoint(this.point, 90 - this.rotation, amountOfMove);
 			this.matrix.postTranslate((float)(this.point.x - this.old_point.x), (float)(this.point.y - this.old_point.y));
 		}
 	}
 
-	public void moveWithLine(int amountOfMove) {
-		this.old_point = new Point(this.point);
+	public void move(Point point) {
 		if(ActionManager.getWriteAction()) {
-			while(amountOfMove > 0) {
-				if(amountOfMove >= MOVE_MAX) {
-					this.manager.setData(this.id + " move " + MOVE_MAX + " true");
+			float amount = Calcu.getDistanse(this.point, point);
+			float rad = Calcu.getRadian(this.point, point);
+			rad = 180 - Calcu.calcuDegree(rad).floatValue() - this.rotation;
+			this.turn(rad);
+			this.move(amount);
+		}
+	}
+
+	public void moveWithLine(float amountOfMove) {
+		if(ActionManager.getWriteAction()) {
+			float amount = Math.abs(amountOfMove);
+			while(amount > 0) {
+				if(amount >= MOVE_MAX) {
+					if(amountOfMove < 0) this.manager.setData(this.id + " move " + (-MOVE_MAX) + " true");
+					else this.manager.setData(this.id + " move " + MOVE_MAX + " true");
 				} else {
-					this.manager.setData(this.id + " move " + amountOfMove + " true");
+					if(amountOfMove < 0) this.manager.setData(this.id + " move " + (-amount) + " true");
+					else this.manager.setData(this.id + " move " + amount + " true");
 				}
-				amountOfMove -= MOVE_MAX;
+				amount -= MOVE_MAX;
 			}
 		} else {
+			this.old_point = new Point(this.point);
 			this.point = Calcu.calcuPoint(this.point, 90.0f - this.rotation, amountOfMove);
 			this.matrix.postTranslate((float)(this.point.x - this.old_point.x), (float)(this.point.y - this.old_point.y));
 			this.manager.setLineData(new Paint(this.line),this.getPoint(),this.getOldPoint());
+		}
+	}
+
+	public void moveWithLine(Point point) {
+		if(ActionManager.getWriteAction()) {
+			float amount = Calcu.getDistanse(this.point, point);
+			float rad = Calcu.getRadian(this.point, point);
+			rad = 180 - Calcu.calcuDegree(rad).floatValue() - this.rotation;
+			this.turn(rad);
+			this.moveWithLine(amount);
 		}
 	}
 
@@ -141,10 +168,10 @@ public class Player extends BaseObject {
 			float absDegree = Math.abs(degree);
 			while(absDegree > 0) {
 				if(absDegree >= TURN_MAX) {
-					if(degree < 0) {this.manager.setData(this.id + " turn " + -TURN_MAX);}
+					if(degree < 0) {this.manager.setData(this.id + " turn " + (-TURN_MAX));}
 					else this.manager.setData(this.id + " turn " + TURN_MAX);
 				} else {
-					if(degree < 0) this.manager.setData(this.id + " turn " + -absDegree);
+					if(degree < 0) this.manager.setData(this.id + " turn " + (-absDegree));
 					else this.manager.setData(this.id + " turn " + absDegree);
 				}
 				absDegree -= TURN_MAX;

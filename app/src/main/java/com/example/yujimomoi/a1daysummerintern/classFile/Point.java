@@ -12,12 +12,12 @@ public class Point {
 		this.y = 0;
 	}
 
-	Point(double x, double y) {
+	public Point(double x, double y) {
 		this.x = x;
 		this.y = y;
 	}
 
-	Point(Point point) {
+	public Point(Point point) {
 		this.x = point.x;
 		this.y = point.y;
 	}

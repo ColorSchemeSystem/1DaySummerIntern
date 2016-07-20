@@ -60,7 +60,7 @@ public class ActionManager {
 				switch (action[1]) {
 					case "move":
 					{
-						int amount = Integer.parseInt(action[2]);
+						float amount = Float.parseFloat(action[2]);
 						boolean line = Boolean.parseBoolean(action[3]);
 						Player player = (Player) BaseObject.getObj(i);
 						if(!line) player.move(amount);

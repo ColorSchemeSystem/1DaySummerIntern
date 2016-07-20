@@ -9,12 +9,14 @@ import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 
 import com.example.yujimomoi.a1daysummerintern.classFile.BaseObject;
 import com.example.yujimomoi.a1daysummerintern.classFile.LogPrint;
+import com.example.yujimomoi.a1daysummerintern.classFile.Point;
 
 import java.util.ArrayList;
 import java.util.concurrent.Executors;
