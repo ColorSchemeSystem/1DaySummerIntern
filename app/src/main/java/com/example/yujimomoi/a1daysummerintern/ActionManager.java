@@ -30,6 +30,7 @@ public class ActionManager {
 		this.line = 0;
 		this.action_flag = false;
 		writeAction = false;
+		this.init();
 	}
 
 	public void init() {
@@ -52,6 +53,7 @@ public class ActionManager {
 
 	public void update() {
 		if(!action_flag) return;
+		int endObj = 0;
 		for(int i = 0;i < BaseObject.max_id;i++) {
 			if(data_buff_cnt[i] < data_buff_amount[i]) {
 				String data = data_buff[i].getData(data_buff_cnt[i]);
@@ -82,7 +84,13 @@ public class ActionManager {
 					}
 					break;
 				}
+			} else {
+				endObj ++;
 			}
+		}
+
+		if(endObj == BaseObject.max_id) {
+			Manager.setEnd();
 		}
 	}
 

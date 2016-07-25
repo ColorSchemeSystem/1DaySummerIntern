@@ -9,19 +9,11 @@ import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.MotionEvent;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
 import android.view.View;
 
 import com.example.yujimomoi.a1daysummerintern.classFile.BaseObject;
-import com.example.yujimomoi.a1daysummerintern.classFile.LogPrint;
-import com.example.yujimomoi.a1daysummerintern.classFile.Point;
 
 import java.util.ArrayList;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -105,5 +97,16 @@ public class ViewRendere extends View {
 		Log.d("ViewRendere", "setObject");
 
 		obj.add(object);
+	}
+
+	public void removeObject(BaseObject object) {
+		if(object == null || this.obj == null) return;
+		Log.d("here","obj : " + String.valueOf(this.obj));
+		for(int i = 0;i < this.obj.size();i++) {
+			BaseObject o = this.obj.get(i);
+			if(o.id == object.id) {
+				this.obj.remove(o);
+			}
+		}
 	}
 }

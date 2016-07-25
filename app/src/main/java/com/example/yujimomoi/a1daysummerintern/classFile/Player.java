@@ -4,7 +4,8 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.support.v4.util.LogWriter;
+import android.util.Log;
+
 import com.example.yujimomoi.a1daysummerintern.ActionManager;
 import com.example.yujimomoi.a1daysummerintern.Manager;
 import com.example.yujimomoi.a1daysummerintern.R;
@@ -18,8 +19,6 @@ public class Player extends BaseObject {
 	private Point point;
 	private Point old_point;
 	private float rotation;
-	private int texture_type;
-	private int texture_color;
 	private Bitmap texture;
 	private Manager manager;
 	private Matrix matrix;
@@ -28,13 +27,8 @@ public class Player extends BaseObject {
 	public Player(Manager manager) {
 		super(BaseObject.OBJ_TYPE_PLAYER);
 		LogPrint.getInstans().logWrite("create", "Player", true);
-		this.point = null;
-		this.rotation = 0;
-		this.texture_type = 0;
-		this.texture_color = 0;
-		this.texture = null;
-		this.line = null;
 		this.manager = manager;
+		this.init();
 	}
 
 	@Override

@@ -54,7 +54,6 @@ public class FieldArea extends BaseObject{
 	public void getFieldSize() {}
 
 	public void draw(Canvas canvas) {
-		//Log.d("draw","FieldArea");
 		this.line_data.draw(canvas);
 	}
 

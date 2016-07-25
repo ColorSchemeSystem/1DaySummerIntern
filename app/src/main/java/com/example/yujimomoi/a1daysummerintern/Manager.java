@@ -5,9 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.Log;
-import android.view.MotionEvent;
 
-import com.example.yujimomoi.a1daysummerintern.classFile.Calcu;
+import com.example.yujimomoi.a1daysummerintern.classFile.BaseObject;
 import com.example.yujimomoi.a1daysummerintern.classFile.FieldArea;
 import com.example.yujimomoi.a1daysummerintern.classFile.LogPrint;
 import com.example.yujimomoi.a1daysummerintern.classFile.Player;
@@ -17,17 +16,61 @@ import com.example.yujimomoi.a1daysummerintern.classFile.Point;
  * Created by yuji.momoi on 2016/07/07.
  */
 public class Manager extends Activity {
-	private Player player;
 	private ActionManager actionManager;
 	private static ViewRendere viewRendere;
 	private FieldArea fieldArea;
+	private static Boolean end_flag = false;
+
+	private final int RED_CAR = R.drawable.car_sample001;
+	private final int BLUE_CAR = R.drawable.car_sample002;
+
+	// ここの中に書いてね
+	public void set() {
+
+		// 線を描くためのオブジェクトを生成
+		Player player = new Player(this);
+		Player player2 = new Player(this);
+
+		// プレイヤーの表示位置(初期座標)の設定
+		player.setPoint(200, 200);
+		player2.setPoint(600, 200);
+
+		// 三角を描く方の車を青い車に変更
+		player2.setTexture(BLUE_CAR);
+
+		// 画面上に表示するために上記で生成したオブジェクトをセットする
+		this.viewRendere.setObject(player);
+		this.viewRendere.setObject(player2);
+
+		// オブジェクトの動きを設定するためにActionManagerを生成
+		actionManager = new ActionManager();
+
+		// オブジェクトの動きの設定
+		this.actionManager.setActionWrite();
+
+		player.setLineColor(Color.RED);
+		// 四角形を描く
+		for (int i = 0;i < 4;i++) {
+			player.turn(360 / 4);
+			player.moveWithLine(200);
+		}
+
+		player2.setLineColor(Color.BLUE);
+		// 三角形を描く
+		for (int i = 0;i < 3;i++) {
+			player2.turn(360 / 3);
+			player2.moveWithLine(200);
+		}
+
+		// オブジェクトの動きの設定を終了
+		this.actionManager.setActionWriteEnd();
+	}
 
 	public Manager(ViewRendere viewRendere) {
 		LogPrint.getInstans().setDrawFlag(false); // ログを書くか書かないか
 		LogPrint.getInstans().logWrite("create", "Manager", true);
 		this.viewRendere = viewRendere;
 		this.actionManager = null;
-		this.player = null;
 		this.fieldArea = null;
 	}
 
@@ -37,109 +80,14 @@ public class Manager extends Activity {
 		this.fieldArea.init();
 		this.viewRendere.setObject(this.fieldArea);
 
-		this.player = new Player(this);
-		this.player.init();
+		this.set();
 
-		Player hoge = new Player(this);
-		hoge.init();
-
-		this.viewRendere.setObject(this.player);
-		this.viewRendere.setObject(hoge);
-
-		this.actionManager = new ActionManager();
-		this.actionManager.init();
-
-		this.player.setPoint(400, 400);
-		hoge.setPoint(400, 400);
-		hoge.setTexture(R.drawable.car_sample002);
-		// オブジェクトの動きの設定
-		this.actionManager.setActionWrite();
-
-//		this.player.setLineColor(Color.YELLOW);
-//		this.player.turn(180);
-//		this.player.turn(-18);
-//		this.player.moveWithLine(300);
-//		this.player.turn(-72);
-//		this.player.moveWithLine(300);
-//		this.player.turn(-234);
-//		this.player.moveWithLine(300);
-//		this.player.turn(-54);
-//		this.player.moveWithLine(300);
-//		this.player.turn(152);
-//		this.player.moveWithLine(300);
-//
-//		this.player.move(600);
-//
-//		hoge.setLineColor(Color.YELLOW);
-//		hoge.turn(180);
-//		hoge.turn(18);
-//		hoge.moveWithLine(300);
-//		hoge.turn(72);
-//		hoge.moveWithLine(300);
-//		hoge.turn(234);
-//		hoge.moveWithLine(300);
-//		hoge.turn(54);
-//		hoge.moveWithLine(300);
-//		hoge.turn(-152);
-//		hoge.moveWithLine(300);
-//
-//		hoge.move(600);
-
-		//drawPolyhedron(this.player, 6, 300);
-		//drawStar(this.player, 500);
-		this.player.setLineColor(Color.YELLOW);
-		drawCircle(this.player, 200);
-		this.player.setLineColor(Color.BLUE);
-		drawCircle(this.player, 180);
-		this.player.setLineColor(Color.YELLOW);
-		drawCircle(this.player, 160);
-		this.player.setLineColor(Color.BLUE);
-		drawCircle(this.player, 140);
-		this.player.setLineColor(Color.YELLOW);
-		drawCircle(this.player, 120);
-		this.player.setLineColor(Color.BLUE);
-		drawCircle(this.player, 100);
-		this.player.setLineColor(Color.YELLOW);
-		drawCircle(this.player, 80);
-		this.player.setLineColor(Color.BLUE);
-		drawCircle(this.player, 60);
-		this.player.setLineColor(Color.YELLOW);
-		drawCircle(this.player, 40);
-		this.player.setLineColor(Color.BLUE);
-		drawCircle(this.player, 20);
-		//this.player.move(new Point(300,500));
-
-		this.player.move(-300);
-
-		hoge.setLineColor(Color.YELLOW);
-		drawCircle(hoge, 400);
-		hoge.setLineColor(Color.BLUE);
-		drawCircle(hoge, 380);
-		hoge.setLineColor(Color.YELLOW);
-		drawCircle(hoge, 360);
-		hoge.setLineColor(Color.BLUE);
-		drawCircle(hoge, 340);
-		hoge.setLineColor(Color.YELLOW);
-		drawCircle(hoge, 320);
-		hoge.setLineColor(Color.BLUE);
-		drawCircle(hoge, 300);
-		hoge.setLineColor(Color.YELLOW);
-		drawCircle(hoge, 280);
-		hoge.setLineColor(Color.BLUE);
-		drawCircle(hoge, 260);
-		hoge.setLineColor(Color.YELLOW);
-		drawCircle(hoge, 240);
-		hoge.setLineColor(Color.BLUE);
-		drawCircle(hoge, 220);
-
-		// オブジェクトの動きの設定を終了
-		this.actionManager.setActionWriteEnd();
 		LogPrint.getInstans().logWrite("init_end", "Manager", true);
 	}
 
 	public void update() {
-		this.actionManager.update();
-		this.player.update();
+		if(!end_flag) this.actionManager.update();
+		else remove();
 	}
 
 	public static Bitmap getTexture(int id) {
@@ -175,8 +123,6 @@ public class Manager extends Activity {
 	}
 
 	public void drawCircle(Player target, float radius) {
-		float rot = target.getRotation();
-		Point point = target.getPoint();
 		target.move(radius);
 		target.turn(90);
 		float amount = (radius * 2) * (float) Math.PI;
@@ -187,5 +133,20 @@ public class Manager extends Activity {
 		target.turn(90);
 		target.move(radius);
 		target.turn(180);
+	}
+
+	public void remove() {
+		for (int i = 0;i < BaseObject.max_id;i++) {
+			BaseObject object = BaseObject.getObj(i);
+			int type = object.getType();
+			if(type != BaseObject.OBJ_TYPE_FIELD) {
+				this.viewRendere.removeObject(object);
+				object.remove();
+			}
+		}
+	}
+
+	public static void setEnd() {
+		end_flag = true;
 	}
 }
