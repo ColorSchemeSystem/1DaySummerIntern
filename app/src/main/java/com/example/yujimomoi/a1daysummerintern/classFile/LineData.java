@@ -27,8 +27,7 @@ public class LineData {
 			this.line_colors[i] = new Paint();
 			this.line_colors[i].setColor(colors[i]);
 			LogPrint.getInstans().logWrite("lineData","color id = " + this.line_colors[i].getColor(), true);
-			this.line_colors[i].setStrokeWidth(40.f);
-			for(int n = 0;n < 4;n++) this.line_paths[i][n] = 0.f;
+			this.line_colors[i].setStrokeWidth(50.f);
 		}
 
 	}
@@ -58,6 +57,7 @@ public class LineData {
 	public void draw(Canvas canvas) {
 		canvas.save();
 		for(int i = 0;i < colors.length;i++) {
+			if(this.line_paths[i].length != 0)
 			canvas.drawLines(this.line_paths[i], this.line_colors[i]);
 		}
 		canvas.restore();

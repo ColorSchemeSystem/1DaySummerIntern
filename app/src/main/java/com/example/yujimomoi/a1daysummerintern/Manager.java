@@ -32,8 +32,8 @@ public class Manager extends Activity {
 		Player player2 = new Player(this);
 
 		// プレイヤーの表示位置(初期座標)の設定
-		player.setPoint(200, 200);
-		player2.setPoint(600, 200);
+		player.setPoint(400, 400);
+		player2.setPoint(400, 400);
 
 		// 三角を描く方の車を青い車に変更
 		player2.setTexture(BLUE_CAR);
@@ -49,18 +49,26 @@ public class Manager extends Activity {
 		this.actionManager.setActionWrite();
 
 		player.setLineColor(Color.RED);
-		// 四角形を描く
-		for (int i = 0;i < 4;i++) {
-			player.turn(360 / 4);
-			player.moveWithLine(200);
-		}
+		this.drawCircle(player, 200);
+		player.setLineColor(Color.GREEN);
+		this.drawCircle(player, 180);
+		player.setLineColor(Color.BLUE);
+		this.drawCircle(player, 160);
+		player.setLineColor(Color.BLACK);
+		this.drawCircle(player, 140);
+		player.setLineColor(Color.RED);
+		this.drawCircle(player, 120);
 
+		player2.setLineColor(Color.GREEN);
+		this.drawCircle(player2, 100);
 		player2.setLineColor(Color.BLUE);
-		// 三角形を描く
-		for (int i = 0;i < 3;i++) {
-			player2.turn(360 / 3);
-			player2.moveWithLine(200);
-		}
+		this.drawCircle(player2, 80);
+		player2.setLineColor(Color.BLACK);
+		this.drawCircle(player2, 60);
+		player2.setLineColor(Color.RED);
+		this.drawCircle(player2, 40);
+		player2.setLineColor(Color.BLUE);
+		this.drawCircle(player2, 20);
 
 		// オブジェクトの動きの設定を終了
 		this.actionManager.setActionWriteEnd();
