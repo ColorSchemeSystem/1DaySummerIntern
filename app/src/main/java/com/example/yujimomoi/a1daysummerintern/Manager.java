@@ -23,6 +23,9 @@ public class Manager extends Activity {
 
 	private final int RED_CAR = R.drawable.car_sample001;
 	private final int BLUE_CAR = R.drawable.car_sample002;
+	private final int GREEN_CAR = R.drawable.car_sample003;
+	private final int BLACK_CAR = R.drawable.car_sample004;
+	private final int YELLOW_CAR = R.drawable.car_sample005;
 
 	// ここの中に書いてね
 	public void set() {
