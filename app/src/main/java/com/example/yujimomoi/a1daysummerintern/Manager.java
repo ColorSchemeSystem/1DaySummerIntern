@@ -28,19 +28,12 @@ public class Manager extends Activity {
 	public void set() {
 
 		// 線を描くためのオブジェクトを生成
-		Player player = new Player(this);
-		Player player2 = new Player(this);
 
 		// プレイヤーの表示位置(初期座標)の設定
-		player.setPoint(400, 400);
-		player2.setPoint(400, 400);
 
 		// 画面上に表示するために上記で生成したオブジェクトをセットする
-		this.viewRendere.setObject(player);
-		this.viewRendere.setObject(player2);
 
 		// オブジェクトの動きを設定するためにActionManagerを生成
-		actionManager = new ActionManager();
 
 		// オブジェクトの動きの設定
 		this.actionManager.setActionWrite();
