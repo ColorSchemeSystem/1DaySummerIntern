@@ -174,8 +174,12 @@ public class Player extends BaseObject {
 		}
 	}
 
-	public void setTexture(int textureId) {
+	public void setTexColor(int textureId) {
 		this.texture = Manager.getTexture(textureId);
+	}
+
+	public static void setAllTexColor(int textureId) {
+		BaseObject.playerSetAllTexColor(textureId);
 	}
 
 	public void setLineColor(int color) {
