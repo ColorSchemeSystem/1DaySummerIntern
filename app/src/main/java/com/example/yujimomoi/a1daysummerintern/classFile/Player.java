@@ -174,6 +174,7 @@ public class Player extends BaseObject {
 			this.rotation += degree;
 			if (this.rotation > 360) this.rotation -= 360;
 			if (this.rotation < 0) this.rotation += 360;
+			if(this.texture == null) return;
 			this.matrix.postTranslate(-(float)this.point.x - (this.texture.getWidth() / 2.0f), -(float)this.point.y - (this.texture.getHeight() / 2.0f));
 			this.matrix.postRotate(degree);
 			this.matrix.postTranslate((float)this.point.x + (this.texture.getWidth() / 2.0f), (float)this.point.y + (this.texture.getHeight() / 2.0f));

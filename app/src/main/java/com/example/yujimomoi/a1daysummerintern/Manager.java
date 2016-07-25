@@ -23,54 +23,175 @@ public class Manager extends Activity {
 
 	private final int RED_CAR = R.drawable.car_sample001;
 	private final int BLUE_CAR = R.drawable.car_sample002;
+	private final int GREEN_CAR = R.drawable.car_sample003;
+	private final int BLACK_CAR = R.drawable.car_sample004;
+	private final int YELLOW_CAR = R.drawable.car_sample005;
 
 	// ここの中に書いてね
 	public void set() {
 
-		// 線を描くためのオブジェクトを生成
-		Player player = new Player(this);
-		Player player2 = new Player(this);
+		// アンパンマン
+//		// 線を描くためのオブジェクトを生成
+//		Player p = new Player(this);
+//		Player p2 = new Player(this);
+//		Player p3 = new Player(this);
+//		Player p4 = new Player(this);
+//		Player p5 = new Player(this);
+//
+//		// プレイヤーの表示位置(初期座標)の設定
+//		p.setPoint(500, 100);
+//		p2.setPoint(200, 100);
+//		p3.setPoint(800, 100);
+//		p4.setPoint(250, -100);
+//		p5.setPoint(750, -100);
+//
+//		// playerの色設定
+//		p.setTexture(RED_CAR);
+//		p2.setTexture(GREEN_CAR);
+//		p3.setTexture(BLUE_CAR);
+//		p4.setTexture(YELLOW_CAR);
+//		p5.setTexture(BLACK_CAR);
+//
+//		// 画面上に表示するために上記で生成したオブジェクトをセットする
+//		this.viewRendere.setObject(p);
+//		this.viewRendere.setObject(p2);
+//		this.viewRendere.setObject(p3);
+//		this.viewRendere.setObject(p4);
+//		this.viewRendere.setObject(p5);
+//
+//		// オブジェクトの動きを設定するためにActionManagerを生成
+//		actionManager = new ActionManager();
+//
+//		p.turn(180);
+//		p2.turn(180);
+//		p3.turn(180);
+//		p4.turn(180);
+//		p5.turn(180);
+//
+//		// オブジェクトの動きの設定
+//		this.actionManager.setActionWrite();
+//
+//		p.move(400);
+//		drawCircle(p, 450);
+//		p.setLineColor(Color.RED);
+//		drawCircle(p, 150);
+//
+//		p2.setLineColor(Color.RED);
+//		p2.move(400);
+//		drawCircle(p2, 150);
+//		p2.turn(-30);
+//		p2.move(150);
+//
+//		p3.setLineColor(Color.RED);
+//		p3.move(400);
+//		drawCircle(p3, 150);
+//		p3.turn(30);
+//		p3.move(150);
+//
+//		p2.setLineColor(Color.BLACK);
+//		p3.setLineColor(Color.BLACK);
+//		for(int i = 0;i < 60;i++) {
+//			p2.turn(-1);
+//			p2.moveWithLine(300 / 60.f);
+//
+//			p3.turn(1);
+//			p3.moveWithLine(300 / 60.f);
+//		}
+//
+//		p4.move(400);
+//		p4.turn(180);
+//
+//		p5.move(400);
+//		p5.turn(180);
+//
+//		for (int i = 0;i < 180;i++) {
+//			p4.turn(1);
+//			p4.moveWithLine(300 / 180.f);
+//
+//			p5.turn(-1);
+//			p5.moveWithLine(300 / 180.f);
+//		}
+//
+//		// オブジェクトの動きの設定を終了
+//		this.actionManager.setActionWriteEnd();
 
-		// プレイヤーの表示位置(初期座標)の設定
-		player.setPoint(400, 400);
-		player2.setPoint(400, 400);
 
-		// 三角を描く方の車を青い車に変更
-		player2.setTexture(BLUE_CAR);
+		Player p = new Player(this);
+		Player p2 = new Player(this);
+		Player p3 = new Player(this);
+		Player p4 = new Player(this);
+		Player p5 = new Player(this);
+
+		// playerの色設定
+		p.setTexture(RED_CAR);
+		p2.setTexture(GREEN_CAR);
+		p3.setTexture(BLUE_CAR);
+		p4.setTexture(YELLOW_CAR);
+		p5.setTexture(BLACK_CAR);
+
+		p.setPoint(-100,600);
+		p2.setPoint(500, -100);
+		p3.setPoint(500, -500);
 
 		// 画面上に表示するために上記で生成したオブジェクトをセットする
-		this.viewRendere.setObject(player);
-		this.viewRendere.setObject(player2);
+		this.viewRendere.setObject(p);
+		this.viewRendere.setObject(p2);
+		this.viewRendere.setObject(p3);
+		this.viewRendere.setObject(p4);
+		this.viewRendere.setObject(p5);
 
-		// オブジェクトの動きを設定するためにActionManagerを生成
-		actionManager = new ActionManager();
+		this.actionManager = new ActionManager();
 
-		// オブジェクトの動きの設定
+		p.turn(90);
+		p2.turn(180);
+		p3.turn(180);
+
 		this.actionManager.setActionWrite();
 
-		player.setLineColor(Color.RED);
-		this.drawCircle(player, 200);
-		player.setLineColor(Color.GREEN);
-		this.drawCircle(player, 180);
-		player.setLineColor(Color.BLUE);
-		this.drawCircle(player, 160);
-		player.setLineColor(Color.BLACK);
-		this.drawCircle(player, 140);
-		player.setLineColor(Color.RED);
-		this.drawCircle(player, 120);
+		p.move(150);
+		p.turn(90);
+		p.moveWithLine(100);
+		p.turn(-90);
+		p.moveWithLine(100);
+		p.turn(90);
+		p.moveWithLine(100);
+		p.turn(-90);
+		p.moveWithLine(100);
+		p.turn(90);
+		p.moveWithLine(100);
+		p.turn(-90);
 
-		player2.setLineColor(Color.GREEN);
-		this.drawCircle(player2, 100);
-		player2.setLineColor(Color.BLUE);
-		this.drawCircle(player2, 80);
-		player2.setLineColor(Color.BLACK);
-		this.drawCircle(player2, 60);
-		player2.setLineColor(Color.RED);
-		this.drawCircle(player2, 40);
-		player2.setLineColor(Color.BLUE);
-		this.drawCircle(player2, 20);
+		p.moveWithLine(400);
 
-		// オブジェクトの動きの設定を終了
+		p.turn(-90);
+		p.moveWithLine(100);
+		p.turn(90);
+		p.moveWithLine(100);
+		p.turn(-90);
+		p.moveWithLine(100);
+		p.turn(90);
+		p.moveWithLine(100);
+		p.turn(-90);
+		p.moveWithLine(100);
+
+		p2.move(600);
+		p2.turn(90);
+		p2.moveWithLine(200);
+		p2.turn(-90);
+		p2.moveWithLine(100);
+		p2.turn(90);
+		p2.moveWithLine(250);
+		p2.turn(90);
+		p2.moveWithLine(300);
+		p2.turn(90);
+		p2.moveWithLine(100);
+		p2.turn(-90);
+		p2.moveWithLine(200);
+		p2.turn(90);
+		p2.moveWithLine(100);
+
+		p3.move(600);
+
 		this.actionManager.setActionWriteEnd();
 	}
 
