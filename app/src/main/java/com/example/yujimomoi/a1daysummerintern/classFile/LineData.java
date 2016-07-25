@@ -26,7 +26,6 @@ public class LineData {
 			this.sizes[i] = 0;
 			this.line_colors[i] = new Paint();
 			this.line_colors[i].setColor(colors[i]);
-			LogPrint.getInstans().logWrite("lineData","color id = " + this.line_colors[i].getColor(), true);
 			this.line_colors[i].setStrokeWidth(50.f);
 		}
 

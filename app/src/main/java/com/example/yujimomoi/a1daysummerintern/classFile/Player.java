@@ -50,9 +50,7 @@ public class Player extends BaseObject {
 
 	@Override
 	public void update() {
-//		Log.d("move","x : " + this.point.x);
-//		Log.d("move","y : " + this.point.y);
-	};
+	}
 
 	@Override
 	public void draw(Canvas canvas) {
@@ -91,10 +89,6 @@ public class Player extends BaseObject {
 	public float getRotation() {
 		return this.rotation;
 	}
-
-	public void changeTexColor() {}
-
-	public static void changeAllTexColor() {}
 
 	public void move(float amountOfMove) {
 		if(ActionManager.getWriteAction()) {
@@ -189,14 +183,6 @@ public class Player extends BaseObject {
 			this.manager.setData(this.id + " lineColor " + String.valueOf(color));
 		} else {
 			this.line.setColor(color);
-		}
-	}
-
-	public void setLineSize(float lineSize) {
-		if(ActionManager.getWriteAction()) {
-			this.manager.setData(this.id + " lineSize " + String.valueOf(lineSize));
-		} else {
-			this.line.setStrokeWidth(lineSize);
 		}
 	}
 }
