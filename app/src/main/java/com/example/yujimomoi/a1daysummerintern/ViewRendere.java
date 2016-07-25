@@ -78,7 +78,7 @@ public class ViewRendere extends View {
 				canvas.restore();
 			}
 		}
-		canvas.drawText(String.format("%.0f fps", fps), 0, FONT_SIZE, paintFps);
+		//canvas.drawText(String.format("%.0f fps", fps), 0, FONT_SIZE, paintFps);
 
 		invalidate();
 	}

@@ -35,9 +35,6 @@ public class Manager extends Activity {
 		player.setPoint(400, 400);
 		player2.setPoint(400, 400);
 
-		// 三角を描く方の車を青い車に変更
-		player2.setTexture(BLUE_CAR);
-
 		// 画面上に表示するために上記で生成したオブジェクトをセットする
 		this.viewRendere.setObject(player);
 		this.viewRendere.setObject(player2);
@@ -47,28 +44,6 @@ public class Manager extends Activity {
 
 		// オブジェクトの動きの設定
 		this.actionManager.setActionWrite();
-
-		player.setLineColor(Color.RED);
-		this.drawCircle(player, 200);
-		player.setLineColor(Color.GREEN);
-		this.drawCircle(player, 180);
-		player.setLineColor(Color.BLUE);
-		this.drawCircle(player, 160);
-		player.setLineColor(Color.BLACK);
-		this.drawCircle(player, 140);
-		player.setLineColor(Color.RED);
-		this.drawCircle(player, 120);
-
-		player2.setLineColor(Color.GREEN);
-		this.drawCircle(player2, 100);
-		player2.setLineColor(Color.BLUE);
-		this.drawCircle(player2, 80);
-		player2.setLineColor(Color.BLACK);
-		this.drawCircle(player2, 60);
-		player2.setLineColor(Color.RED);
-		this.drawCircle(player2, 40);
-		player2.setLineColor(Color.BLUE);
-		this.drawCircle(player2, 20);
 
 		// オブジェクトの動きの設定を終了
 		this.actionManager.setActionWriteEnd();
@@ -112,35 +87,6 @@ public class Manager extends Activity {
 
 	public void setLineData(Paint color, Point startPoint, Point endPoint) {
 		this.fieldArea.setLineData(color, startPoint, endPoint);
-	}
-
-	public void drawPolyhedron(Player target, int vartex, float radius) {
-		for(int i = 0; i < vartex; i++) {
-			target.turn((float) (360 / vartex));
-			target.moveWithLine(radius);
-		}
-	}
-
-	public void drawStar(Player target, float radius) {
-		int vartex = 5;
-		float rotation = (360 - (float) (360 / vartex)) / 2.0f;
-		for (int i = 0; i < vartex; i++) {
-			target.turn(360 - rotation);
-			target.moveWithLine(radius);
-		}
-	}
-
-	public void drawCircle(Player target, float radius) {
-		target.move(radius);
-		target.turn(90);
-		float amount = (radius * 2) * (float) Math.PI;
-		for(int i = 0;i < 360;i++) {
-			target.turn(1);
-			target.moveWithLine(amount / 360);
-		}
-		target.turn(90);
-		target.move(radius);
-		target.turn(180);
 	}
 
 	public void remove() {
