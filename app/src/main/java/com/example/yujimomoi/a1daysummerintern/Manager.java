@@ -117,81 +117,18 @@ public class Manager extends Activity {
 
 
 		Player p = new Player(this);
-		Player p2 = new Player(this);
-		Player p3 = new Player(this);
-		Player p4 = new Player(this);
-		Player p5 = new Player(this);
 
 		// playerの色設定
 		p.setTexture(RED_CAR);
-		p2.setTexture(GREEN_CAR);
-		p3.setTexture(BLUE_CAR);
-		p4.setTexture(YELLOW_CAR);
-		p5.setTexture(BLACK_CAR);
 
-		p.setPoint(-100,600);
-		p2.setPoint(500, -100);
-		p3.setPoint(500, -500);
+		p.setPoint(50,400);
 
 		// 画面上に表示するために上記で生成したオブジェクトをセットする
 		this.viewRendere.setObject(p);
-		this.viewRendere.setObject(p2);
-		this.viewRendere.setObject(p3);
-		this.viewRendere.setObject(p4);
-		this.viewRendere.setObject(p5);
 
 		this.actionManager = new ActionManager();
 
-		p.turn(90);
-		p2.turn(180);
-		p3.turn(180);
-
 		this.actionManager.setActionWrite();
-
-		p.move(150);
-		p.turn(90);
-		p.moveWithLine(100);
-		p.turn(-90);
-		p.moveWithLine(100);
-		p.turn(90);
-		p.moveWithLine(100);
-		p.turn(-90);
-		p.moveWithLine(100);
-		p.turn(90);
-		p.moveWithLine(100);
-		p.turn(-90);
-
-		p.moveWithLine(400);
-
-		p.turn(-90);
-		p.moveWithLine(100);
-		p.turn(90);
-		p.moveWithLine(100);
-		p.turn(-90);
-		p.moveWithLine(100);
-		p.turn(90);
-		p.moveWithLine(100);
-		p.turn(-90);
-		p.moveWithLine(100);
-
-		p2.move(600);
-		p2.turn(90);
-		p2.moveWithLine(200);
-		p2.turn(-90);
-		p2.moveWithLine(100);
-		p2.turn(90);
-		p2.moveWithLine(250);
-		p2.turn(90);
-		p2.moveWithLine(300);
-		p2.turn(90);
-		p2.moveWithLine(100);
-		p2.turn(-90);
-		p2.moveWithLine(200);
-		p2.turn(90);
-		p2.moveWithLine(100);
-
-		p3.move(600);
-
 		this.actionManager.setActionWriteEnd();
 	}
 
