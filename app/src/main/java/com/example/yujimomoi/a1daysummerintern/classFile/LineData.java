@@ -11,7 +11,7 @@ import java.util.ArrayList;
  */
 public class LineData {
 	private Paint[] line_colors;
-	private int[] colors = {Color.BLACK, Color.RED, Color.BLUE, Color.GREEN};
+	private int[] colors = {Color.BLACK, Color.RED, Color.BLUE, Color.GREEN, Color.YELLOW};
 	private float line_paths[][];
 	private int sizes[];
 
