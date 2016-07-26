@@ -21,6 +21,7 @@ public class Manager extends Activity {
 	private FieldArea fieldArea;
 	private static Boolean end_flag = false;
 
+	// 使える車の種類
 	private final int RED_CAR = R.drawable.car_sample001;
 	private final int BLUE_CAR = R.drawable.car_sample002;
 	private final int GREEN_CAR = R.drawable.car_sample003;
