@@ -19,6 +19,7 @@ public class Player extends BaseObject {
 	private Point point;
 	private Point old_point;
 	private float rotation;
+	private float direction;
 	private Bitmap texture;
 	private Manager manager;
 	private Matrix matrix;
@@ -37,6 +38,8 @@ public class Player extends BaseObject {
 		this.point = new Point();
 		this.old_point = new Point();
 		this.texture = Manager.getTexture(R.drawable.car_sample001);
+		this.rotation = 0.f;
+		this.direction = 0.f;
 		this.matrix = new Matrix();
 		this.line = new Paint();
 		this.line.setStyle(Paint.Style.STROKE);
@@ -170,6 +173,34 @@ public class Player extends BaseObject {
 				}
 				absDegree -= TURN_MAX;
 			}
+		} else {
+			this.rotation += degree;
+			if (this.rotation > 360) this.rotation -= 360;
+			if (this.rotation < 0) this.rotation += 360;
+			if(this.texture == null) return;
+			this.matrix.postTranslate(-(float)this.point.x - (this.texture.getWidth() / 2.0f), -(float)this.point.y - (this.texture.getHeight() / 2.0f));
+			this.matrix.postRotate(degree);
+			this.matrix.postTranslate((float)this.point.x + (this.texture.getWidth() / 2.0f), (float)this.point.y + (this.texture.getHeight() / 2.0f));
+		}
+	}
+
+	public void setDirection(int degree) {
+		if(ActionManager.getWriteAction()) {
+			float target = degree - (int) this.direction;
+			float amount = Math.abs(target);
+			while(amount > 0) {
+				if(amount >= TURN_MAX) {
+					if(degree < 0) {this.manager.setData(this.id + " turn " + (-TURN_MAX));}
+					else this.manager.setData(this.id + " turn " + TURN_MAX);
+				} else {
+					if(degree < 0) this.manager.setData(this.id + " turn " + (-amount));
+					else this.manager.setData(this.id + " turn " + amount);
+				}
+				amount -= TURN_MAX;
+			}
+			this.direction = degree;
+			if (this.direction > 360) this.direction -= 360;
+			if (this.direction < 0) this.direction += 360;
 		} else {
 			this.rotation += degree;
 			if (this.rotation > 360) this.rotation -= 360;

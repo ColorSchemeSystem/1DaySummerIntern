@@ -121,14 +121,24 @@ public class Manager extends Activity {
 		// playerの色設定
 		p.setTexture(RED_CAR);
 
-		p.setPoint(50,400);
+		p.setPoint(200,800);
 
 		// 画面上に表示するために上記で生成したオブジェクトをセットする
 		this.viewRendere.setObject(p);
 
 		this.actionManager = new ActionManager();
 
+		//p.turn(90);
+
 		this.actionManager.setActionWrite();
+		p.setDirection(0);
+		drawPolyhedron(p, 3, 300);
+		p.setDirection(0);
+		p.move(400);
+		drawPolyhedron(p, 4, 300);
+		p.setDirection(0);
+		p.move(600);
+		drawPolyhedron(p, 5, 300);
 		this.actionManager.setActionWriteEnd();
 	}
 
