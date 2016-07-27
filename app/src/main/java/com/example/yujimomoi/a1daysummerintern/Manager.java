@@ -21,6 +21,7 @@ public class Manager extends Activity {
 	private FieldArea fieldArea;
 	private static Boolean end_flag = false;
 
+	// 使える車の種類
 	private final int RED_CAR = R.drawable.car_sample001;
 	private final int BLUE_CAR = R.drawable.car_sample002;
 	private final int GREEN_CAR = R.drawable.car_sample003;
@@ -31,16 +32,10 @@ public class Manager extends Activity {
 	public void set() {
 
 		// 線を描くためのオブジェクトを生成
-		Player p = new Player(this);
-		Player p2 = new Player(this);
 
 		// プレイヤーの表示位置(初期座標)の設定
-		p.setPoint(100, 100);
-		p2.setPoint(1000, 100);
 
 		// 画面上に表示するために上記で生成したオブジェクトをセットする
-		this.viewRendere.setObject(p);
-		this.viewRendere.setObject(p2);
 
 		// オブジェクトの動きを設定するためにActionManagerを生成
 		this.actionManager = new ActionManager();

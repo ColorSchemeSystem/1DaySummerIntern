@@ -21,7 +21,7 @@ import java.util.ArrayList;
  */
 public class ViewRendere extends View {
 	private ArrayList<BaseObject> obj;
-	private int texture_name_list[] = {R.drawable.car_sample001, R.drawable.car_sample002};
+	private int texture_name_list[] = {R.drawable.car_sample001, R.drawable.car_sample002, R.drawable.car_sample003, R.drawable.car_sample004, R.drawable.car_sample005};
 	private Bitmap texture_list[];
 	private static final float FONT_SIZE = 48f;
 	private Paint paintFps;
