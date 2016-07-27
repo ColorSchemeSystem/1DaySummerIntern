@@ -11,7 +11,7 @@ import java.util.ArrayList;
  */
 public class LineData {
 	private Paint[] line_colors;
-	private int[] colors = {Color.BLACK, Color.RED, Color.BLUE, Color.GREEN};
+	private int[] colors = {Color.BLACK, Color.RED, Color.BLUE, Color.GREEN, Color.YELLOW};
 	private float line_paths[][];
 	private int sizes[];
 
@@ -26,7 +26,6 @@ public class LineData {
 			this.sizes[i] = 0;
 			this.line_colors[i] = new Paint();
 			this.line_colors[i].setColor(colors[i]);
-			LogPrint.getInstans().logWrite("lineData","color id = " + this.line_colors[i].getColor(), true);
 			this.line_colors[i].setStrokeWidth(25.f);
 		}
 

@@ -21,6 +21,7 @@ public class Manager extends Activity {
 	private FieldArea fieldArea;
 	private static Boolean end_flag = false;
 
+	// 使える車の種類
 	private final int RED_CAR = R.drawable.car_sample001;
 	private final int BLUE_CAR = R.drawable.car_sample002;
 	private final int GREEN_CAR = R.drawable.car_sample003;
@@ -30,115 +31,18 @@ public class Manager extends Activity {
 	// ここの中に書いてね
 	public void set() {
 
-		// アンパンマン
-//		// 線を描くためのオブジェクトを生成
-//		Player p = new Player(this);
-//		Player p2 = new Player(this);
-//		Player p3 = new Player(this);
-//		Player p4 = new Player(this);
-//		Player p5 = new Player(this);
-//
-//		// プレイヤーの表示位置(初期座標)の設定
-//		p.setPoint(500, 100);
-//		p2.setPoint(200, 100);
-//		p3.setPoint(800, 100);
-//		p4.setPoint(250, -100);
-//		p5.setPoint(750, -100);
-//
-//		// playerの色設定
-//		p.setTexture(RED_CAR);
-//		p2.setTexture(GREEN_CAR);
-//		p3.setTexture(BLUE_CAR);
-//		p4.setTexture(YELLOW_CAR);
-//		p5.setTexture(BLACK_CAR);
-//
-//		// 画面上に表示するために上記で生成したオブジェクトをセットする
-//		this.viewRendere.setObject(p);
-//		this.viewRendere.setObject(p2);
-//		this.viewRendere.setObject(p3);
-//		this.viewRendere.setObject(p4);
-//		this.viewRendere.setObject(p5);
-//
-//		// オブジェクトの動きを設定するためにActionManagerを生成
-//		actionManager = new ActionManager();
-//
-//		p.turn(180);
-//		p2.turn(180);
-//		p3.turn(180);
-//		p4.turn(180);
-//		p5.turn(180);
-//
-//		// オブジェクトの動きの設定
-//		this.actionManager.setActionWrite();
-//
-//		p.move(400);
-//		drawCircle(p, 450);
-//		p.setLineColor(Color.RED);
-//		drawCircle(p, 150);
-//
-//		p2.setLineColor(Color.RED);
-//		p2.move(400);
-//		drawCircle(p2, 150);
-//		p2.turn(-30);
-//		p2.move(150);
-//
-//		p3.setLineColor(Color.RED);
-//		p3.move(400);
-//		drawCircle(p3, 150);
-//		p3.turn(30);
-//		p3.move(150);
-//
-//		p2.setLineColor(Color.BLACK);
-//		p3.setLineColor(Color.BLACK);
-//		for(int i = 0;i < 60;i++) {
-//			p2.turn(-1);
-//			p2.moveWithLine(300 / 60.f);
-//
-//			p3.turn(1);
-//			p3.moveWithLine(300 / 60.f);
-//		}
-//
-//		p4.move(400);
-//		p4.turn(180);
-//
-//		p5.move(400);
-//		p5.turn(180);
-//
-//		for (int i = 0;i < 180;i++) {
-//			p4.turn(1);
-//			p4.moveWithLine(300 / 180.f);
-//
-//			p5.turn(-1);
-//			p5.moveWithLine(300 / 180.f);
-//		}
-//
-//		// オブジェクトの動きの設定を終了
-//		this.actionManager.setActionWriteEnd();
+		// 線を描くためのオブジェクトを生成
 
-
-		Player p = new Player(this);
-
-		// playerの色設定
-		p.setTexture(RED_CAR);
-
-		p.setPoint(200,800);
+		// プレイヤーの表示位置(初期座標)の設定
 
 		// 画面上に表示するために上記で生成したオブジェクトをセットする
-		this.viewRendere.setObject(p);
 
+		// オブジェクトの動きを設定するためにActionManagerを生成
 		this.actionManager = new ActionManager();
 
 		//p.turn(90);
 
-		this.actionManager.setActionWrite();
-		p.setDirection(0);
-		drawPolyhedron(p, 3, 300);
-		p.setDirection(0);
-		p.move(400);
-		drawPolyhedron(p, 4, 300);
-		p.setDirection(0);
-		p.move(600);
-		drawPolyhedron(p, 5, 300);
+		// オブジェクトの動きの設定を終了
 		this.actionManager.setActionWriteEnd();
 	}
 
@@ -180,35 +84,6 @@ public class Manager extends Activity {
 
 	public void setLineData(Paint color, Point startPoint, Point endPoint) {
 		this.fieldArea.setLineData(color, startPoint, endPoint);
-	}
-
-	public void drawPolyhedron(Player target, int vartex, float radius) {
-		for(int i = 0; i < vartex; i++) {
-			target.turn((float) (360 / vartex));
-			target.moveWithLine(radius);
-		}
-	}
-
-	public void drawStar(Player target, float radius) {
-		int vartex = 5;
-		float rotation = (360 - (float) (360 / vartex)) / 2.0f;
-		for (int i = 0; i < vartex; i++) {
-			target.turn(360 - rotation);
-			target.moveWithLine(radius);
-		}
-	}
-
-	public void drawCircle(Player target, float radius) {
-		target.move(radius);
-		target.turn(90);
-		float amount = (radius * 2) * (float) Math.PI;
-		for(int i = 0;i < 360;i++) {
-			target.turn(1);
-			target.moveWithLine(amount / 360);
-		}
-		target.turn(90);
-		target.move(radius);
-		target.turn(180);
 	}
 
 	public void remove() {

@@ -34,4 +34,13 @@ public class BaseObject {
 		objList.remove(this);
 		max_id --;
 	}
+
+	protected static void playerSetAllTexColor(int textureId) {
+		for (BaseObject obj : objList) {
+			if(obj.obj_type == OBJ_TYPE_PLAYER) {
+				Player player = (Player) obj;
+				player.setTexColor(textureId);
+			}
+		}
+	}
 }
