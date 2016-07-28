@@ -39,8 +39,6 @@ public class Manager extends Activity {
 		// オブジェクトの動きを設定するためにActionManagerを生成
 		this.actionManager = new ActionManager();
 
-		//p.turn(90);
-
 		// オブジェクトの動きの設定を終了
 		this.actionManager.setActionWriteEnd();
 	}
