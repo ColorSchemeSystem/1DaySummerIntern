@@ -30,17 +30,6 @@ public class Manager extends Activity {
 	// ここの中に書いてね
 	public void set() {
 
-		// 線を描くためのオブジェクトを生成
-
-		// プレイヤーの表示位置(初期座標)の設定
-
-		// 画面上に表示するために上記で生成したオブジェクトをセットする
-
-		// オブジェクトの動きを設定するためにActionManagerを生成
-		this.actionManager = new ActionManager();
-
-		// オブジェクトの動きの設定を終了
-		this.actionManager.setActionWriteEnd();
 	}
 
 	public Manager(ViewRendere viewRendere) {
