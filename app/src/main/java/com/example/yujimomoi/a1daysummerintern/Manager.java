@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.util.Log;
 
 import com.example.yujimomoi.a1daysummerintern.classFile.BaseObject;
 import com.example.yujimomoi.a1daysummerintern.classFile.FieldArea;
