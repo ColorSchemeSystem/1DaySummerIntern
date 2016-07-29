@@ -15,7 +15,7 @@ import com.example.yujimomoi.a1daysummerintern.classFile.Point;
  * Created by yuji.momoi on 2016/07/07.
  */
 public class Manager extends Activity {
-	private ActionManager actionManager;
+	private ActionManager actionManager = null;
 	private static ViewRendere viewRendere;
 	private FieldArea fieldArea;
 	private static Boolean end_flag = false;
@@ -52,7 +52,7 @@ public class Manager extends Activity {
 	}
 
 	public void update() {
-		if(!end_flag) this.actionManager.update();
+		if(!end_flag && this.actionManager != null) this.actionManager.update();
 		else remove();
 	}
 
